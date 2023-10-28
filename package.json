@@ -1,0 +1,27 @@
+{
+  "name": "ijs-projeto1",
+  "version": "1.0.0",
+  "description": "primeiro projeto da reprograma",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Geice-Sousa/IJS-Projeto1.git#main"
+  },
+  "keywords": [
+    "banco",
+    "projeto",
+    "POO"
+  ],
+  "author": "Geice Sousa Pinho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Geice-Sousa/IJS-Projeto1/issues"
+  },
+  "homepage": "https://github.com/Geice-Sousa/IJS-Projeto1/tree/main#readme",
+  "dependencies": {
+    "jest": "^29.7.0"
+  }
+}
