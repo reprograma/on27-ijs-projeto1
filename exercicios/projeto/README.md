@@ -46,34 +46,89 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
 ### Diagrama feito em aula
   <img src="../../assets/diagrama_bancao.png" alt="diagrama banco" >
 
-### to-do
-- [ ] Cliente
+### to-do em aula
+- [x] Cliente
   - Atributos
-    - [ ] nome
-    - [ ] cpf
-    - [ ] renda
+    - [x] nome
+    - [x] cpf
+    - [x] renda
+    - [x] conta
   - Métodos
-    - [ ] registrar cliente
-  - [ ] Testes
-    - [ ] verificar se instancia é criada
-    - [ ] verificar se dados estão validos
-    - [ ] verificar dados invalidos
+    - [x] registrar cliente
+  - [x] Testes
+    - [x] verificar se instancia é criada
+    - [x] verificar se dados estão validos
+    - [x] verificar dados invalidos
 
-- [ ] Conta
+- [x] Conta
   - Atributos
-    - [ ] agencia
-    - [ ] conta
-    - [ ] saldo
-    - [ ] chavesPix
+    - [x] agencia
+    - [x] conta
+    - [x] saldo
+    - [x] chavesPix
   - Métodos
-    - [ ] depositar
-    - [ ] sacar
-    - [ ] transferir
-    - [ ] getSaldo
-    - [ ] setSaldo
-    - [ ] pix
-      - [ ] criar pix
-        - [ ] email
-        - [ ] telefone
-        - [ ] cpf
+    - [x] depositar
+    - [x] sacar
+    - [x] transferir
+    - [x] getSaldo
+    - [x] setSaldo
+    - [x] criarConta
+    - [x] pix
+      - [x] criar pix
+        - [x] email
+        - [x] telefone
+        - [x] cpf
+  - [x] Testes
+    - [x] verificar instancia criada
+    - [x] verificar se conta foi criada com dados validos
+    - [x] verificar se manda erro ao criar com dado invalido
+    - [x] depositar 
+      - [x] retornar erro caso tipo incorreto
+      - [x] retorna erro caso deposito negativo
+      - [x] sucesso para deposito positivo 
+    - [x] sacar 
+      - [x] retornar erro caso tipo incorreto
+      - [x] retornar erro caso não tenha saldo
+    - [x] transferir
+      - [x] retornar erro caso não tenha saldo
+      - [x] retornar erro caso conta de recebimento invalida
 
+## Para o lar
+- [x] testes de erro para metodo criarChavePix 
+  - [x] telefone
+  - [x] email
+  - [x] inexistente
+- [ ] implementacao tranferencia por PIX
+  - vai receber:
+    - [x] valor
+    - [x] chavePix
+    - [x] tipo
+  - pode retornar
+    - [ ] sucesso
+    - [ ] "Chave pix não encontrada"
+    - [ ] "Valor inválido de pix"
+    - [ ] "Saldo insuficiente"
+> Sistema possui 3 classificações de conta que diferem na verificação de renda antes de criar a conta e na existencia de limites de transferencia e pix. Use Polimorfismo para esses métodos e não esqueca de adicionar o *limiteTransacional* no construtor 
+- [x] testes e implementação Conta Standard
+- [x] testes e implementação Conta Gold 
+- [x] testes e implementação Conta Premium
+- criar testes para os 3 tipos de conta: 
+  - [ ] replicar todos os testes de depositar
+  - [x] replicar todos os testes de sacar
+  - [ ] replicar todos os testes de transferir
+  - [ ] verificar se instancia conta é feita corretamente
+  - [ ] criar conta de com dados válidos e renda compatível
+  - [ ] retorna erro ao criar conta de com dados válidos e renda incompatível
+  - [ ] retorna erro ao criar conta com dados inválidos
+  - [ ] testes de casos de sucesso e erro de saque 
+  - [ ] testes de casos de sucesso e erro de deposito 
+  - [ ] testes de casos de sucesso e erro de deposito 
+- testes para pix e transferencia:
+  - [ ] retorna sucesso para valor válido, saldo suficiente e dados válidos
+  - [ ] retorna erro para valor válido, saldo suficiente e dados inválidos
+  - [ ] retorna erro para valor válido, saldo insuficiente e dados válidos
+  - [ ] valor inválido, saldo suficiente e dados válidos
+
+---
+- Antes de abrir o PR colocar todo o projeto dentro de da pasta de entrega com seu nome.
+> apague a node modules antes de fazer essa movimentação 

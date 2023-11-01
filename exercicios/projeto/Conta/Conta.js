@@ -17,7 +17,7 @@ class Conta {
     Conta.listaContas.push(this)
   }
 
-  destruir(){
+  destruir() {
     let i = Conta.listaContas.indexOf(this)
     Conta.listaContas.splice(i, 1)
   }
@@ -115,25 +115,29 @@ class Conta {
   transferir(valor, agencia, conta) {
     let contaValida = Conta.listaContas.find(contaReceptora => {
       let numeroContaReceptora = contaReceptora.getConta
-      let numeroAgenciaReceptora =  contaReceptora.getAgencia
+      let numeroAgenciaReceptora = contaReceptora.getAgencia
       return numeroContaReceptora === conta && numeroAgenciaReceptora === agencia
     })
 
-    if (!contaValida){
+    if (!contaValida) {
       throw new Error("Conta não encontrada")
     }
 
     if (valor < 0) {
-      throw new Error ("Valor inválido para trnasferência")
+      throw new Error("Valor inválido para trnasferência")
     }
 
-    if(this.#saldo - valor > 0) {
+    if (this.#saldo - valor > 0) {
       const saldoAtualizado = this.#saldo - valor;
       this.setSaldo(saldoAtualizado)
       const saldoContaReceptora = contaValida.getSaldo + valor
       contaValida.setSaldo(saldoContaReceptora)
       return "Transferência realizada"
     }
+  }
+
+  transferirPix(valor, chavePix, tipo){
+    
   }
 }
 module.exports = Conta;
