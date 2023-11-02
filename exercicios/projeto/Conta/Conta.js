@@ -3,7 +3,7 @@ class Conta {
   #conta;
   #saldo;
   chavesPix;
-  static listaContas = []
+  static listaContas = [];
 
   constructor(agencia, conta, saldo) {
     this.#agencia = agencia;
@@ -14,23 +14,23 @@ class Conta {
       email: undefined,
       telefone: undefined,
     };
-    Conta.listaContas.push(this)
+    Conta.listaContas.push(this);
   }
 
   destruir() {
-    let i = Conta.listaContas.indexOf(this)
-    Conta.listaContas.splice(i, 1)
+    let i = Conta.listaContas.indexOf(this);
+    Conta.listaContas.splice(i, 1);
   }
 
-  get getAgencia() {
+  getAgencia() {
     return this.#agencia;
   }
 
-  get getConta() {
+  getConta() {
     return this.#conta;
   }
 
-  get getSaldo() {
+  getSaldo() {
     return this.#saldo;
   }
 
@@ -113,31 +113,34 @@ class Conta {
   }
 
   transferir(valor, agencia, conta) {
-    let contaValida = Conta.listaContas.find(contaReceptora => {
-      let numeroContaReceptora = contaReceptora.getConta
-      let numeroAgenciaReceptora = contaReceptora.getAgencia
-      return numeroContaReceptora === conta && numeroAgenciaReceptora === agencia
-    })
+    let contaValida = Conta.listaContas.find((contaReceptora) => {
+      let numeroContaReceptora = contaReceptora.getConta();
+      let numeroAgenciaReceptora = contaReceptora.getAgencia();
+      return (
+        numeroContaReceptora === conta && numeroAgenciaReceptora === agencia
+      );
+    });
 
     if (!contaValida) {
-      throw new Error("Conta não encontrada")
+      throw new Error("Conta não encontrada");
     }
 
     if (valor < 0) {
-      throw new Error("Valor inválido para trnasferência")
+      throw new Error("Valor inválido para trnasferência");
     }
 
     if (this.#saldo - valor > 0) {
       const saldoAtualizado = this.#saldo - valor;
-      this.setSaldo(saldoAtualizado)
-      const saldoContaReceptora = contaValida.getSaldo + valor
-      contaValida.setSaldo(saldoContaReceptora)
-      return "Transferência realizada"
+      this.setSaldo(saldoAtualizado);
+      const saldoContaReceptora = contaValida.getSaldo() + valor;
+      contaValida.setSaldo(saldoContaReceptora);
+      return "Transferência realizada";
     }
   }
 
-  transferirPix(valor, chavePix, tipo){
-    
+  transferirPix(valor, chavePix, tipo) {
+    let contaValida = Conta.listaContas.find(conta => conta.chavePix[tipo] === chavePix)
+    //terminar
   }
 }
 module.exports = Conta;

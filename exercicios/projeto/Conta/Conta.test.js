@@ -9,9 +9,9 @@ describe("Teste da classe Conta", () => {
 
   test("Instanciar conta com valores válidos", () => {
     const conta = new Conta("1234", "12345", 1000);
-    expect(conta.getAgencia).toBe("1234");
-    expect(conta.getConta).toBe("12345");
-    expect(conta.getSaldo).toBe(1000);
+    expect(conta.getAgencia()).toBe("1234");
+    expect(conta.getConta()).toBe("12345");
+    expect(conta.getSaldo()).toBe(1000);
     conta.destruir()
   });
 
@@ -20,9 +20,9 @@ describe("Teste da classe Conta", () => {
     expect(conta.criarConta("1234", "12345", 1000)).toBe(
       "Conta criada com sucesso"
     );
-    expect(conta.getAgencia).toBe("1234");
-    expect(conta.getConta).toBe("12345");
-    expect(conta.getSaldo).toBe(1000);
+    expect(conta.getAgencia()).toBe("1234");
+    expect(conta.getConta()).toBe("12345");
+    expect(conta.getSaldo()).toBe(1000);
     conta.destruir()
   });
 
@@ -39,7 +39,7 @@ describe("Teste da classe Conta", () => {
     conta.criarConta("1234", "12345", 1000);
 
     conta.sacar(100);
-    expect(conta.getSaldo).toBe(900);
+    expect(conta.getSaldo()).toBe(900);
     conta.destruir()
   });
 
@@ -48,7 +48,7 @@ describe("Teste da classe Conta", () => {
     conta.criarConta("1234", "12345", 1000);
 
     expect(() => conta.sacar(-100)).toThrow("valor inválido para saque");
-    expect(conta.getSaldo).toBe(1000);
+    expect(conta.getSaldo()).toBe(1000);
     conta.destruir()
   });
 
@@ -57,7 +57,7 @@ describe("Teste da classe Conta", () => {
     conta.criarConta("1234", "12345", 1000);
 
     conta.depositar(100);
-    expect(conta.getSaldo).toBe(1100);
+    expect(conta.getSaldo()).toBe(1100);
     conta.destruir()
   });
 
@@ -66,7 +66,7 @@ describe("Teste da classe Conta", () => {
     conta.criarConta("1234", "12345", 1000);
 
     expect(() => conta.depositar(-100)).toThrow("valor inválido para depósito");
-    expect(conta.getSaldo).toBe(1000);
+    expect(conta.getSaldo()).toBe(1000);
     conta.destruir()
   });
 
@@ -75,7 +75,7 @@ describe("Teste da classe Conta", () => {
     conta.criarConta("1234", "12345", 1000);
 
     expect(() => conta.depositar(" ")).toThrow("valor inválido para depósito");
-    expect(conta.getSaldo).toBe(1000);
+    expect(conta.getSaldo()).toBe(1000);
     conta.destruir()
   });
 
@@ -122,8 +122,8 @@ describe("Teste da classe Conta", () => {
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix com telefone invalido", () => {
     const conta = new Conta();
-
-    expect(() => conta.criarChavePix("9383003", "TELEFONE")).toThrow("Erro: telefone Inválido");
+    const operacao = () => conta.criarChavePix("9383003", "TELEFONE")
+    expect(operacao).toThrow("Erro: telefone Inválido");
     conta.destruir()
   });
 
@@ -145,10 +145,24 @@ describe("Teste da classe Conta", () => {
     const operacao = contaEmissor.transferir(100, "0001", "78945");
 
     expect(operacao).toBe("Transferência realizada");
-    expect(contaEmissor.getSaldo).toBe(900);
-    expect(contaReceptor.getSaldo).toBe(600);
+    expect(contaEmissor.getSaldo()).toBe(900);
+    expect(contaReceptor.getSaldo()).toBe(600);
 
     contaEmissor.destruir()
     contaReceptor.destruir()
   });
+
+  // test ("retorna sucesso ao fazer uma transferência com valor válido, saldo suficiente, dados válidos", () => {
+  //   const contaEmissor = new Conta();
+  //   const contaReceptor = new Conta();
+
+  //   contaEmissor.criarConta("0001", "12345", 1000);
+  //   contaReceptor.criarConta("0001", "78945", 500);
+
+  //   contaReceptor.criarChavePix("email@email.com", "EMAIL")
+
+  //   expect(operacao).toBe("Transferência realizada");
+  //   expect(contaEmissor.getSaldo).toBe(900);
+  //   expect(contaReceptor.getSaldo).toBe(600);
+  // })
 });

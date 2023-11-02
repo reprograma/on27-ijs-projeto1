@@ -1,24 +1,27 @@
 // Gold
-// renda mensal de R$5000,00 até R$17.999,99. 
+// renda mensal de R$5000,00 até R$17.999,99.
 // tem limite de transação de 5000 reais por dia.
 
 const Conta = require("../Conta/Conta");
 
 class ContaGold extends Conta {
-    #limite;
-  
-    constructor(agencia, conta, saldo) {
-      super(agencia, conta, saldo);
-      this.#limite = 5000;
-    }
+  #limite;
+  renda;
 
-    sacar(valor) {
-      if (valor > this.#limite) {
-        throw new Error("Limite diário para saque é de $ 5000,00");
-      }
-      super.sacar(valor);
+  constructor(agencia, conta, saldo, renda) {
+    super(agencia, conta, saldo);
+    this.renda = renda;
+    this.#limite = 5000;
+  }
+
+  criarConta(agencia, conta, saldo, renda) {
+    if (renda >= 5000 && renda <= 17999.99) {
+      super.criarConta(agencia, conta, saldo);
+      return "Conta criada com sucesso";
+    } else {
+      throw new Error("Renda não compatível com Conta Gold");
     }
   }
-  
-  module.exports = ContaGold;
-  
+}
+
+module.exports = ContaGold;
