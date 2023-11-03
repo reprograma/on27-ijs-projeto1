@@ -39,7 +39,7 @@ describe("Testes da Classe Conta", () => {
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
-        
+	
     // remover conta da lista de contas
     conta.destruir()
 });
@@ -49,7 +49,7 @@ describe("Testes da Classe Conta", () => {
     expect(() => conta.criarConta("123454", "123", 1000)).toThrow(
       "Dados inválidos para cadastro"
     );
-        
+	
     // remover conta da lista de contas
     conta.destruir()
 });
@@ -177,6 +177,24 @@ describe("Testes da Classe Conta", () => {
     conta.destruir()
   });
 
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com telefone invalido", () => {
+    const conta = new Conta();
+    
+    expect(() => conta.criarChavePix("1195187", "TELEFONE")).toThrow();
+  });
+
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com email invalido", () => {
+    const conta = new Conta();
+
+    expect(() => conta.criarChavePix("stella.com", "EMAIL")).toThrow();
+  });
+
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com tipo invalido", () => {
+    const conta = new Conta();
+
+    expect(conta.criarChavePix("1195187", "TIPO")).toBe("Chave inexistente");
+  });
+
   /**
    * TRANFERENCIA
    * emissor = conta q esta enviando o dinheiro
@@ -193,8 +211,8 @@ describe("Testes da Classe Conta", () => {
     const contaEmissor = new Conta();
     const contaReceptor = new Conta();
 
-    contaEmissor.criarConta("0001", "12345", 1000 )
-    contaReceptor.criarConta("0001", "78945", 500 )
+    contaEmissor.criarConta("0001", "12345", 1000)
+    contaReceptor.criarConta("0001", "78945", 500)
 
     //acao
     const operacao = contaEmissor.transferir(100, "0001", "78945")
@@ -209,8 +227,61 @@ describe("Testes da Classe Conta", () => {
 
   })
 
+  test("transferência via PIX com sucesso", () => {
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
 
+    contaEmissor.criarConta("0001", "12345", 1000);
+    contaReceptor.criarConta("0001", "78945", 500);
 
+    contaEmissor.criarChavePix("40814360879", "CPF");
 
+    expect(contaEmissor.transferirPix(100, "40814360879", "CPF")).toBe("Tranferencia realizada");
 
+	contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
+  test("retorna erro ao fazer uma transferencia PIX com valor inválido", ()=>{
+	const contaEmissor = new Conta();
+	const contaReceptor = new Conta();
+
+	contaEmissor.criarConta("0001", "12345", 1000);
+	contaReceptor.criarConta("0001", "78945", 500);
+
+	contaEmissor.criarChavePix("40814360879", "CPF");
+
+	expect(() => contaEmissor.transferirPix(-100, "40814360879", "CPF")).toThrow();
+
+	contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
+  test("retorna erro ao fazer uma transferencia PIX com saldo insuficiente", ()=>{
+	const contaEmissor = new Conta();
+	const contaReceptor = new Conta();
+
+	contaEmissor.criarConta("0001", "12345", 1000);
+	contaReceptor.criarConta("0001", "78945", 500);
+
+	contaEmissor.criarChavePix("40814360879", "CPF");
+
+	expect(() => contaEmissor.transferirPix(1100, "40814360879", "CPF")).toThrow();
+
+	contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
+  test("retorna erro ao fazer uma transferencia PIX com chave PIX inválida", ()=>{
+	const contaEmissor = new Conta();
+	const contaReceptor = new Conta();
+
+	contaEmissor.criarConta("0001", "12345", 1000);
+	contaReceptor.criarConta("0001", "78945", 500);
+
+	expect(() => contaEmissor.transferirPix(100, "37", "SAPATO")).toThrow();
+
+	contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
 });
