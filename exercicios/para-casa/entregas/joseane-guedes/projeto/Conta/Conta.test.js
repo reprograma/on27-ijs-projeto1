@@ -209,18 +209,13 @@ describe("Testes da Classe Conta", () => {
 
   })
 
-  // testes de erro para metodo criarChavePix
-  // telefone
-  // email
-  // inexistente
-
-  it("Deve lançar erro para chave Pix tipo CPF inválido", () => {
+  test("Deve lançar erro para chave Pix tipo CPF inválido", () => {
     const conta = new Conta();
 
     expect(() => conta.criarChavePix('987654321', 'CPF')).toThrowError("Erro: CPF inválido");
   });
 
-  it("Deve lançar erro para chave Pix tipo email inválido", () => {
+  test("Deve lançar erro para chave Pix tipo email inválido", () => {
     const conta = new Conta();
 
     expect(() => {
@@ -228,7 +223,7 @@ describe("Testes da Classe Conta", () => {
     }).toThrowError("Erro: Email inválido");
   });
 
-  it("Deve lançar erro para chave Pix de tipo telefone inválido", () => {
+  test("Deve lançar erro para chave Pix de tipo telefone inválido", () => {
     const conta = new Conta();
 
     expect(() => {
@@ -236,7 +231,7 @@ describe("Testes da Classe Conta", () => {
     }).toThrowError("Erro: Telefone inválido");
   });
 
-  it('Deve lançar erro para chave Pix de tipo inexistente', () => {
+  test('Deve lançar erro para chave Pix de tipo inexistente', () => {
     const conta = new Conta();
     const inexistente = conta.criarChavePix('valor', 'INEXISTENTE');
     expect(inexistente).toEqual('Chave inexistente');
