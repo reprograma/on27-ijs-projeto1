@@ -4,7 +4,7 @@ describe("Teste da classe Conta", () => {
   test("Verificar se a instância Conta está sendo criada", () => {
     const conta = new Conta();
     expect(conta instanceof Conta).toBe(true);
-    conta.destruir()
+    conta.destruir();
   });
 
   test("Instanciar conta com valores válidos", () => {
@@ -12,7 +12,7 @@ describe("Teste da classe Conta", () => {
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir()
+    conta.destruir();
   });
 
   test("retorna mensagem de sucesso ao criar conta", () => {
@@ -23,7 +23,7 @@ describe("Teste da classe Conta", () => {
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir()
+    conta.destruir();
   });
 
   test("retorna mensagem de ERRO ao criar conta", () => {
@@ -31,7 +31,7 @@ describe("Teste da classe Conta", () => {
     expect(() => conta.criarConta("12345", "123", 1000)).toThrow(
       "Erro no cadastro, dados inválidos"
     );
-    conta.destruir()
+    conta.destruir();
   });
 
   test("retorna sucesso ao sacar 100 da conta", () => {
@@ -40,7 +40,7 @@ describe("Teste da classe Conta", () => {
 
     conta.sacar(100);
     expect(conta.getSaldo()).toBe(900);
-    conta.destruir()
+    conta.destruir();
   });
 
   test("retorna mensagem de erro ao sacar -100 da conta", () => {
@@ -49,7 +49,7 @@ describe("Teste da classe Conta", () => {
 
     expect(() => conta.sacar(-100)).toThrow("valor inválido para saque");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir()
+    conta.destruir();
   });
 
   test("retorna sucesso ao depositar 100 na conta", () => {
@@ -58,7 +58,7 @@ describe("Teste da classe Conta", () => {
 
     conta.depositar(100);
     expect(conta.getSaldo()).toBe(1100);
-    conta.destruir()
+    conta.destruir();
   });
 
   test("retorna mensagem de erro ao depositar -100 da conta", () => {
@@ -67,7 +67,7 @@ describe("Teste da classe Conta", () => {
 
     expect(() => conta.depositar(-100)).toThrow("valor inválido para depósito");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir()
+    conta.destruir();
   });
 
   test("retorna mensagem de erro ao depositar valor não numérico da conta", () => {
@@ -76,65 +76,8 @@ describe("Teste da classe Conta", () => {
 
     expect(() => conta.depositar(" ")).toThrow("valor inválido para depósito");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir()
+    conta.destruir();
   });
-
-  test("criar uma chave pix por cpf com sucesso", () => {
-    const conta = new Conta();
-    const operacao = conta.criarChavePix("40812545878", "CPF");
-
-    expect(operacao).toBe("Chave Pix CPF criada com sucesso");
-    expect(conta.chavesPix.cpf).toBe("40812545878");
-    conta.destruir()
-  });
-
-  test("retornar mensagem de erro ao tentar cadastrar chave pix com cpf invalido", () => {
-    const conta = new Conta();
-
-    expect(() => conta.criarChavePix("4081878", "CPF")).toThrow("Erro: CPF Inválido");
-    conta.destruir()
-  });
-
-  test("criar uma chave pix por e-mail com sucesso", () => {
-    const conta = new Conta();
-    const operacao = conta.criarChavePix("roxanie@email.com.br", "EMAIL");
-
-    expect(operacao).toBe("Chave Pix EMAIL criada com sucesso");
-    expect(conta.chavesPix.email).toBe("roxanie@email.com.br");
-    conta.destruir()
-  });
-
-  test("retornar mensagem de erro ao tentar cadastrar chave pix com email invalido", () => {
-    const conta = new Conta();
-
-    expect(() => conta.criarChavePix("roxanie.com", "EMAIL")).toThrow("Erro: email Inválido");
-    conta.destruir()
-  });
-
-  test("criar uma chave pix por telefone com sucesso", () => {
-    const conta = new Conta();
-    const operacao = conta.criarChavePix("(11)917383003", "TELEFONE");
-
-    expect(operacao).toBe("Chave Pix TELEFONE criada com sucesso");
-    expect(conta.chavesPix.telefone).toBe("(11)917383003");
-    conta.destruir()
-  });
-
-  test("retornar mensagem de erro ao tentar cadastrar chave pix com telefone invalido", () => {
-    const conta = new Conta();
-    const operacao = () => conta.criarChavePix("9383003", "TELEFONE")
-    expect(operacao).toThrow("Erro: telefone Inválido");
-    conta.destruir()
-  });
-
-  test("retornar mensagem de erro ao tentar cadastrar chave pix Inexistente", () => {
-    const conta = new Conta();
-
-    expect(conta.criarChavePix("inexistente", "INEXISTENTE")).toBe("Chave inexistente");
-    conta.destruir()
-  });
-
-
   test("retorna sucesso ao fazer uma transferência com valor válido, saldo suficiente, dados válidos", () => {
     const contaEmissor = new Conta();
     const contaReceptor = new Conta();
@@ -148,23 +91,134 @@ describe("Teste da classe Conta", () => {
     expect(contaEmissor.getSaldo()).toBe(900);
     expect(contaReceptor.getSaldo()).toBe(600);
 
-    contaEmissor.destruir()
-    contaReceptor.destruir()
+    contaEmissor.destruir();
+    contaReceptor.destruir();
   });
 
-  test ("retorna sucesso ao fazer uma transferência com valor válido, saldo suficiente, dados válidos", () => {
+  test("criar uma chave pix por cpf com sucesso", () => {
+    const conta = new Conta();
+    const operacao = conta.criarChavePix("40812545878", "CPF");
+
+    expect(operacao).toBe("Chave Pix CPF criada com sucesso");
+    expect(conta.chavesPix.cpf).toBe("40812545878");
+    conta.destruir();
+  });
+
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com cpf invalido", () => {
+    const conta = new Conta();
+
+    expect(() => conta.criarChavePix("4081878", "CPF")).toThrow(
+      "Erro: CPF Inválido"
+    );
+    conta.destruir();
+  });
+
+  test("criar uma chave pix por e-mail com sucesso", () => {
+    const conta = new Conta();
+    const operacao = conta.criarChavePix("roxanie@email.com.br", "EMAIL");
+
+    expect(operacao).toBe("Chave Pix EMAIL criada com sucesso");
+    expect(conta.chavesPix.email).toBe("roxanie@email.com.br");
+    conta.destruir();
+  });
+
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com email invalido", () => {
+    const conta = new Conta();
+
+    expect(() => conta.criarChavePix("roxanie.com", "EMAIL")).toThrow(
+      "Erro: email Inválido"
+    );
+    conta.destruir();
+  });
+
+  test("criar uma chave pix por telefone com sucesso", () => {
+    const conta = new Conta();
+    const operacao = conta.criarChavePix("(11)917383003", "TELEFONE");
+
+    expect(operacao).toBe("Chave Pix TELEFONE criada com sucesso");
+    expect(conta.chavesPix.telefone).toBe("(11)917383003");
+    conta.destruir();
+  });
+
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com telefone invalido", () => {
+    const conta = new Conta();
+    const operacao = () => conta.criarChavePix("9383003", "TELEFONE");
+    expect(operacao).toThrow("Erro: telefone Inválido");
+    conta.destruir();
+  });
+
+  test("retornar mensagem de erro ao tentar cadastrar chave pix Inexistente", () => {
+    const conta = new Conta();
+
+    expect(conta.criarChavePix("inexistente", "INEXISTENTE")).toBe(
+      "Chave inexistente"
+    );
+    conta.destruir();
+  });
+
+  test("retorna sucesso ao fazer uma transferência  via pix com valor válido, saldo suficiente, dados válidos", () => {
     const contaEmissor = new Conta();
     const contaReceptor = new Conta();
 
     contaEmissor.criarConta("0001", "12345", 1000);
     contaReceptor.criarConta("0001", "78945", 500);
 
-    contaReceptor.criarChavePix("roxanie@email.com.br", "EMAIL")
+    contaReceptor.criarChavePix("roxanie@email.com.br", "EMAIL");
 
-    const operacao = contaEmissor.transferirPix(100, "roxanie@email.com.br", "email")
+    const operacao = contaEmissor.transferirPix(100,"roxanie@email.com.br","email");
 
     expect(operacao).toBe("Transferência realizada");
     expect(contaEmissor.getSaldo()).toBe(900);
     expect(contaReceptor.getSaldo()).toBe(600);
+    contaEmissor.destruir()
+    contaReceptor.destruir()
+  });
+
+  test("retorna ERRO ao tentar realizar uma transferência via Pix com uma chave não encontrada", () => {
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta("0001", "12345", 1000);
+    contaReceptor.criarConta("0001", "78945", 500);
+
+    expect(() => contaEmissor.transferirPix("roxanie@email.com.br", "EMAIL")).toThrow("Conta e chave Pix não encontrada")
+    expect(contaEmissor.getSaldo()).toBe(1000);
+    expect(contaReceptor.getSaldo()).toBe(500);
+
+    contaEmissor.destruir()
+    contaReceptor.destruir()
   })
+
+  test("retorna ERRO ao tentar realizar uma transferência via Pix com valor inválido", () => {
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta("0001", "12345", 1000);
+    contaReceptor.criarConta("0001", "78945", 500);
+    
+    contaReceptor.criarChavePix("12345678977", "CPF")
+
+    expect(() => contaEmissor.transferirPix(-100, "12345678977", "cpf")).toThrow("Valor inválido para transferência")
+    expect(contaEmissor.getSaldo()).toBe(1000);
+    expect(contaReceptor.getSaldo()).toBe(500);
+    contaEmissor.destruir()
+    contaReceptor.destruir()
+  })
+
+  test("retorna mensagem de erro ao tentar realizar uma transferência acima do valor disponível no saldo", () => {
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta("0001", "12345", 1000);
+    contaReceptor.criarConta("0001", "78945", 500);
+    
+    contaReceptor.criarChavePix("12345678977", "CPF")
+
+    expect(() => contaEmissor.transferirPix(1320, "12345678977", "cpf")).toThrow("Saldo insuficiente para essa transação")
+    expect(contaEmissor.getSaldo()).toBe(1000);
+    expect(contaReceptor.getSaldo()).toBe(500);
+    contaEmissor.destruir()
+    contaReceptor.destruir()
+  })
+  
 });

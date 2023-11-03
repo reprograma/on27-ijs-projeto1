@@ -145,10 +145,10 @@ class Conta {
   transferirPix(valor, chavePix, tipo) {
     let contaValida = Conta.listaContas.find(conta => conta && conta.chavesPix && conta.chavesPix[tipo] === chavePix) 
     if (!contaValida) {
-      throw new Error("Conta não encontrada");
+      throw new Error("Conta e chave Pix não encontrada");
     }
     if (valor < 0) {
-      throw new Error("Valor inválido para trnasferência");
+      throw new Error("Valor inválido para transferência");
     }
     if (this.#saldo - valor > 0) {
       const saldoAtualizado = this.#saldo - valor;
@@ -156,6 +156,8 @@ class Conta {
       const saldoContaReceptora = contaValida.getSaldo() + valor;
       contaValida.setSaldo(saldoContaReceptora);
       return "Transferência realizada";
+    } else {
+      throw new Error ("Saldo insuficiente para essa transação")
     }
   }
 }

@@ -27,10 +27,17 @@ class ContaGold extends Conta {
     if (valor > 0 && valor <= this.#limite) {
       super.transferir(valor, agencia, conta);
       return "Transferência realizada";
-      
     } else {
       throw new Error("Valor de transferência acima do limite diário");
     }
+  }
+
+  transferirPix(valor, chavePix, tipo) {
+    if (valor > this.#limite) {
+      throw new Error("ERRO: Valor acima do limite diário disponível");
+    }
+    super.transferirPix(valor, chavePix, tipo);
+    return "Transferência realizada";
   }
 }
 
