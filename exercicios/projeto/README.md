@@ -104,7 +104,7 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
     - [x] chavePix
     - [x] tipo
   - pode retornar
-    - [ ] sucesso
+    - [x] sucesso
     - [ ] "Chave pix não encontrada"
     - [ ] "Valor inválido de pix"
     - [ ] "Saldo insuficiente"

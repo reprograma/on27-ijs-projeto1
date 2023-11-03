@@ -152,17 +152,19 @@ describe("Teste da classe Conta", () => {
     contaReceptor.destruir()
   });
 
-  // test ("retorna sucesso ao fazer uma transferência com valor válido, saldo suficiente, dados válidos", () => {
-  //   const contaEmissor = new Conta();
-  //   const contaReceptor = new Conta();
+  test ("retorna sucesso ao fazer uma transferência com valor válido, saldo suficiente, dados válidos", () => {
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
 
-  //   contaEmissor.criarConta("0001", "12345", 1000);
-  //   contaReceptor.criarConta("0001", "78945", 500);
+    contaEmissor.criarConta("0001", "12345", 1000);
+    contaReceptor.criarConta("0001", "78945", 500);
 
-  //   contaReceptor.criarChavePix("email@email.com", "EMAIL")
+    contaReceptor.criarChavePix("roxanie@email.com.br", "EMAIL")
 
-  //   expect(operacao).toBe("Transferência realizada");
-  //   expect(contaEmissor.getSaldo).toBe(900);
-  //   expect(contaReceptor.getSaldo).toBe(600);
-  // })
+    const operacao = contaEmissor.transferirPix(100, "roxanie@email.com.br", "email")
+
+    expect(operacao).toBe("Transferência realizada");
+    expect(contaEmissor.getSaldo()).toBe(900);
+    expect(contaReceptor.getSaldo()).toBe(600);
+  })
 });

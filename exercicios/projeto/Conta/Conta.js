@@ -38,6 +38,10 @@ class Conta {
     this.#saldo = newSaldo;
   }
 
+  getChavesPix() {
+    return this.chavesPix
+  }
+
   criarChavePix(chavePix, tipo) {
     switch (tipo) {
       case "CPF":
@@ -139,8 +143,23 @@ class Conta {
   }
 
   transferirPix(valor, chavePix, tipo) {
-    let contaValida = Conta.listaContas.find(conta => conta.chavePix[tipo] === chavePix)
-    //terminar
+    let contaValida = Conta.listaContas.find(conta => conta && conta.chavesPix && conta.chavesPix[tipo] === chavePix) 
+    if (!contaValida) {
+      throw new Error("Conta não encontrada");
+    }
+    if (valor < 0) {
+      throw new Error("Valor inválido para trnasferência");
+    }
+    if (this.#saldo - valor > 0) {
+      const saldoAtualizado = this.#saldo - valor;
+      this.setSaldo(saldoAtualizado);
+      const saldoContaReceptora = contaValida.getSaldo() + valor;
+      contaValida.setSaldo(saldoContaReceptora);
+      return "Transferência realizada";
+    }
   }
 }
 module.exports = Conta;
+
+
+
