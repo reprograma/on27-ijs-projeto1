@@ -65,4 +65,47 @@ describe("Teste da classe ContaPremium", () => {
         conta.destruir()
       });
 
+      test("retorna mensagem de sucesso ao depositar 100 na conta", () => {
+        const conta = new ContaPremium()
+        conta.criarConta("1234", "12345", 1000, 20000)
+        
+        conta.depositar(100)
+        expect(conta.getSaldo()).toBe(1100)
+        conta.destruir()
+      })
+    
+      test("retona mensagem de erro ao depositar -100 da conta", () => {
+        const conta = new ContaPremium()
+        conta.criarConta("1234", "12345", 1000, 20000)
+    
+        expect(() => conta.depositar(-100)).toThrow("valor inválido para depósito")
+        expect(conta.getSaldo()).toBe(1000)
+        conta.destruir()
+      })
+    
+      test("retorna mensagem de erro ao depositar valor não numérico da conta", () => {
+        const conta = new ContaPremium();
+        conta.criarConta("1234", "12345", 1000, 20000);
+    
+        expect(() => conta.depositar(" ")).toThrow("valor inválido para depósito");
+        expect(conta.getSaldo()).toBe(1000);
+        conta.destruir()
+      });
+
+      test("retorna sucesso ao fazer uma transferência com valor válido, saldo sufuciente, dados válidos", () => {
+        const contaEmissor = new ContaPremium()
+        const contaReceptor = new ContaPremium()
+    
+        contaEmissor.criarConta("1234", "12245", 2000, 20000)
+        contaReceptor.criarConta("7894", "45678", 1000, 19000)
+    
+        const operacao = contaEmissor.transferir(200,"7894", "45678")
+    
+        expect(operacao).toBe("Transferência realizada")
+        expect(contaEmissor.getSaldo()).toBe(1800)
+        expect(contaReceptor.getSaldo()).toBe(1200)
+    
+        contaEmissor.destruir()
+        contaReceptor.destruir()
+      })
 })

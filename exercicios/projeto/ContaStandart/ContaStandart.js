@@ -6,7 +6,7 @@ const Conta = require("../Conta/Conta");
 
 class ContaStandart extends Conta {
   #limite;
-  renda
+  renda;
 
   constructor(agencia, conta, saldo, renda) {
     super(agencia, conta, saldo);
@@ -22,6 +22,17 @@ class ContaStandart extends Conta {
       throw new Error("Renda não compatível com Conta Standart");
     }
   }
+
+  transferir(valor, agencia, conta) {
+    if (valor > 0 && valor <= this.#limite) {
+      super.transferir(valor, agencia, conta);
+      return "Transferência realizada";
+      
+    } else {
+      throw new Error("Valor de transferência acima do limite diário");
+    }
+  }
 }
 
 module.exports = ContaStandart;
+

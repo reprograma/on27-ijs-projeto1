@@ -113,16 +113,16 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
 - [x] testes e implementação Conta Gold 
 - [x] testes e implementação Conta Premium
 - criar testes para os 3 tipos de conta: 
-  - [ ] replicar todos os testes de depositar
+  - [x] replicar todos os testes de depositar
   - [x] replicar todos os testes de sacar
-  - [ ] replicar todos os testes de transferir
-  - [ ] verificar se instancia conta é feita corretamente
-  - [ ] criar conta de com dados válidos e renda compatível
-  - [ ] retorna erro ao criar conta de com dados válidos e renda incompatível
-  - [ ] retorna erro ao criar conta com dados inválidos
-  - [ ] testes de casos de sucesso e erro de saque 
-  - [ ] testes de casos de sucesso e erro de deposito 
-  - [ ] testes de casos de sucesso e erro de deposito 
+  - [x] replicar todos os testes de transferir
+  - [x] verificar se instancia conta é feita corretamente
+  - [x] criar conta de com dados válidos e renda compatível
+  - [x] retorna erro ao criar conta de com dados válidos e renda incompatível
+  - [x] retorna erro ao criar conta com dados inválidos
+  - [x] testes de casos de sucesso e erro de saque 
+  - [x] testes de casos de sucesso e erro de deposito 
+  - [x] testes de casos de sucesso e erro de transferencia
 - testes para pix e transferencia:
   - [ ] retorna sucesso para valor válido, saldo suficiente e dados válidos
   - [ ] retorna erro para valor válido, saldo suficiente e dados inválidos

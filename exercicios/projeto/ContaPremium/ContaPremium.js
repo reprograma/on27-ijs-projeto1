@@ -5,12 +5,10 @@
 const Conta = require("../Conta/Conta");
 
 class ContaPremium extends Conta {
-    #limite;
     renda
   
-    constructor(agencia, conta, saldo, limite, renda) {
+    constructor(agencia, conta, saldo, renda) {
       super(agencia, conta, saldo);
-      this.#limite = limite;
       this.renda = renda;
     }
 

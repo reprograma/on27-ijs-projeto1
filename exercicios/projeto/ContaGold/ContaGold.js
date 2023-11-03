@@ -22,6 +22,16 @@ class ContaGold extends Conta {
       throw new Error("Renda não compatível com Conta Gold");
     }
   }
+
+  transferir(valor, agencia, conta) {
+    if (valor > 0 && valor <= this.#limite) {
+      super.transferir(valor, agencia, conta);
+      return "Transferência realizada";
+      
+    } else {
+      throw new Error("Valor de transferência acima do limite diário");
+    }
+  }
 }
 
 module.exports = ContaGold;

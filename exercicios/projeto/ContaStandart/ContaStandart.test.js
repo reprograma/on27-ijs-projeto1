@@ -62,4 +62,66 @@ describe("Teste da classe ContaStandart", () => {
     expect(conta.getSaldo()).toBe(1000);
     conta.destruir();
   });
+
+  test("retorna mensagem de sucesso ao depositar 100 na conta", () => {
+    const conta = new ContaStandart()
+    conta.criarConta("1234", "12345", 1000, 3000)
+    
+    conta.depositar(100)
+    expect(conta.getSaldo()).toBe(1100)
+    conta.destruir()
+  })
+
+  test("retona mensagem de erro ao depositar -100 da conta", () => {
+    const conta = new ContaStandart()
+    conta.criarConta("1234", "12345", 1000, 3000)
+
+    expect(() => conta.depositar(-100)).toThrow("valor inválido para depósito")
+    expect(conta.getSaldo()).toBe(1000)
+    conta.destruir()
+  })
+
+  test("retorna mensagem de erro ao depositar valor não numérico da conta", () => {
+    const conta = new ContaStandart();
+    conta.criarConta("1234", "12345", 1000, 3000);
+
+    expect(() => conta.depositar(" ")).toThrow("valor inválido para depósito");
+    expect(conta.getSaldo()).toBe(1000);
+    conta.destruir()
+  });
+
+  test("retorna sucesso ao fazer uma transferência com valor válido, saldo sufuciente, dados válidos", () => {
+    const contaEmissor = new ContaStandart()
+    const contaReceptor = new ContaStandart()
+
+    contaEmissor.criarConta("1234", "12245", 3000, 4500)
+    contaReceptor.criarConta("7894", "45678", 1000, 2500)
+
+    const operacao = contaEmissor.transferir(200,"7894", "45678")
+
+    expect(operacao).toBe("Transferência realizada")
+    expect(contaEmissor.getSaldo()).toBe(2800)
+    expect(contaReceptor.getSaldo()).toBe(1200)
+
+    contaEmissor.destruir()
+    contaReceptor.destruir()
+  })
+
+  test("retorna mensagem de erro ao tentar fazer uma transferência acima do limite diário", () => {
+    const contaEmissor = new ContaStandart()
+    const contaReceptor = new ContaStandart()
+
+    contaEmissor.criarConta("1234", "12245", 3000, 4500)
+    contaReceptor.criarConta("7894", "45678", 1000, 2500)
+
+
+    expect(() => contaEmissor.transferir(2500,"7894", "45678")).toThrow("Valor de transferência acima do limite diário")
+    expect(contaEmissor.getSaldo()).toBe(3000)
+    expect(contaReceptor.getSaldo()).toBe(1000)
+
+    contaEmissor.destruir()
+    contaReceptor.destruir()
+  })
+
+
 });
