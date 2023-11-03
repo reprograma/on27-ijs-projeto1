@@ -141,6 +141,9 @@ class Conta {
     }
 
     transferirPix(valor, chavePix, tipo) {
+        if (!['cpf', 'email', 'telefone'].includes(tipo.toLowerCase())) {
+            throw new Error("Tipo de chave PIX inválido");
+        }
         const contaReceptora = Conta.listaContas.find(conta => conta.chavesPix[tipo.toLowerCase()] === chavePix);
 
         if (!contaReceptora) {

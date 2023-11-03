@@ -240,13 +240,13 @@ describe("Testes da Classe Conta", () => {
   test("Deve retornar sucesso ao transferir com valor válido, saldo suficiente e dados válidos", () => {
     const contaEmissor = new Conta("1234", "56789", 1000);
     const contaReceptor = new Conta("4321", "98765", 500);
-    contaReceptor.criarChavePix("Destino@gmail.com", "EMAIL");
+    contaReceptor.criarChavePix("contaReceptora@gmail.com", "EMAIL");
 
     const saldoOrigemAntes = contaEmissor.getSaldo();
     const saldoDestinoAntes = contaReceptor.getSaldo();
     const valorTransferido = 200;
 
-    const resultado = contaEmissor.transferirPix(valorTransferido, "Destino@gmail.com", "EMAIL");
+    const resultado = contaEmissor.transferirPix(valorTransferido, "contaReceptora@gmail.com", "EMAIL");
 
     expect(resultado).toBe('Transferência realizada');
     expect(contaEmissor.getSaldo()).toBe(saldoOrigemAntes - valorTransferido);
@@ -276,5 +276,38 @@ describe("Testes da Classe Conta", () => {
     contaReceptor.destruir();
   });
 
+  test('Deve retornar erro para valor válido, saldo insuficiente e dados válidos', () => {
+    const contaEmissor = new Conta("1234", "56789", 100);
+    const contaReceptor = new Conta("4321", "98765", 500);
+    contaEmissor.criarChavePix("meupix@gmail.com", "EMAIL");
+
+    const saldoOrigemAntes = contaEmissor.getSaldo();
+    const saldoDestinoAntes = contaReceptor.getSaldo();
+    const valorTransferido = 200;
+
+    expect(() => {
+      contaEmissor.transferirPix(valorTransferido, "meupix@gmail.com", "EMAIL");
+    }).toThrow("Saldo insuficiente");
+
+    expect(contaEmissor.getSaldo()).toBe(saldoOrigemAntes);
+    expect(contaReceptor.getSaldo()).toBe(saldoDestinoAntes);
+  });
+
+  test('Deve retornar erro para valor inválido, saldo suficiente e dados válidos', () => {
+    const contaEmissor = new Conta("1234", "56789", 1000);
+    const contaReceptor = new Conta("4321", "98765", 500);
+    contaEmissor.criarChavePix("destino@gmail.com", "EMAIL");
+
+    const saldoOrigemAntes = contaEmissor.getSaldo();
+    const saldoDestinoAntes = contaReceptor.getSaldo();
+    const valorTransferido = -200;
+
+    expect(() => {
+      contaEmissor.transferirPix(valorTransferido, "destino@gmail.com", "EMAIL");
+    }).toThrow('Valor inválido para transferência');
+
+    expect(contaEmissor.getSaldo()).toBe(saldoOrigemAntes);
+    expect(contaReceptor.getSaldo()).toBe(saldoDestinoAntes);
+  });
 
 });
