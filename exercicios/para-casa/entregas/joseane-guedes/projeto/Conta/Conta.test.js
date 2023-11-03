@@ -236,4 +236,45 @@ describe("Testes da Classe Conta", () => {
     const inexistente = conta.criarChavePix('valor', 'INEXISTENTE');
     expect(inexistente).toEqual('Chave inexistente');
   });
+
+  test("Deve retornar sucesso ao transferir com valor válido, saldo suficiente e dados válidos", () => {
+    const contaEmissor = new Conta("1234", "56789", 1000);
+    const contaReceptor = new Conta("4321", "98765", 500);
+    contaReceptor.criarChavePix("Destino@gmail.com", "EMAIL");
+
+    const saldoOrigemAntes = contaEmissor.getSaldo();
+    const saldoDestinoAntes = contaReceptor.getSaldo();
+    const valorTransferido = 200;
+
+    const resultado = contaEmissor.transferirPix(valorTransferido, "Destino@gmail.com", "EMAIL");
+
+    expect(resultado).toBe('Transferência realizada');
+    expect(contaEmissor.getSaldo()).toBe(saldoOrigemAntes - valorTransferido);
+    expect(contaReceptor.getSaldo()).toBe(saldoDestinoAntes + valorTransferido);
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
+
+  test("Deve retornar erro para valor válido, saldo suficiente e dados inválidos", () => {
+    const contaEmissor = new Conta("1234", "56789", 1000);
+    const contaReceptor = new Conta("4321", "98765", 500);
+
+    const saldoOrigemAntes = contaEmissor.getSaldo();
+    const saldoDestinoAntes = contaReceptor.getSaldo();
+    const valorTransferido = 200;
+
+    expect(() => {
+      contaEmissor.transferirPix(valorTransferido, "chaveInvalida", "EMAIL");
+    }).toThrow("Chave PIX não encontrada");
+
+    expect(contaEmissor.getSaldo()).toBe(saldoOrigemAntes);
+    expect(contaReceptor.getSaldo()).toBe(saldoDestinoAntes);
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
+
 });

@@ -89,7 +89,6 @@ class Conta {
     }
 
 
-
     getAgencia() {
         return this.#agencia;
     }
@@ -141,6 +140,21 @@ class Conta {
 
     }
 
+    transferirPix(valor, chavePix, tipo) {
+        const contaReceptora = Conta.listaContas.find(conta => conta.chavesPix[tipo.toLowerCase()] === chavePix);
+
+        if (!contaReceptora) {
+            throw new Error("Chave PIX não encontrada");
+        } else if (valor <= 0) {
+            throw new Error("Valor inválido para transferência");
+        } else if (this.#saldo - valor < 0) {
+            throw new Error("Saldo insuficiente");
+        } else {
+            this.#saldo -= valor;
+            contaReceptora.setSaldo(contaReceptora.getSaldo() + valor);
+            return "Transferência realizada";
+        }
+    }
 }
 
 module.exports = Conta
