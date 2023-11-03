@@ -115,30 +115,30 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
   - [x] inexistente
 - [ ] implementacao tranferencia por PIX
   - vai receber:
-    - [ ] valor
-    - [ ] chavePix
-    - [ ] tipo
-  - pode retornar - [ ] sucesso - [ ] "Chave pix não encontrada" - [ ] "Valor inválido de pix" - [ ] "Saldo insuficiente"
+    - [x] valor
+    - [x] chavePix
+    - [x] tipo
+  - pode retornar - [x] sucesso - [x] "Chave pix não encontrada" - [x] "Valor inválido de pix" - [x] "Saldo insuficiente"
     > Sistema possui 3 classificações de conta que diferem na verificação de renda antes de criar a conta e na existencia de limites de transferencia e pix. Use Polimorfismo para esses métodos e não esqueca de adicionar o _limiteTransacional_ no construtor
-- [ ] testes e implementação Conta Standard
-- [ ] testes e implementação Conta Gold
-- [ ] testes e implementação Conta Premium
+- [x] testes e implementação Conta Standard
+- [x] testes e implementação Conta Gold
+- [x] testes e implementação Conta Premium
 - criar testes para os 3 tipos de conta:
   - [ ] replicar todos os testes de depositar
   - [ ] replicar todos os testes de sacar
   - [ ] replicar todos os testes de transferir
-  - [ ] verificar se instancia conta é feita corretamente
-  - [ ] criar conta de com dados válidos e renda compatível
-  - [ ] retorna erro ao criar conta de com dados válidos e renda incompatível
-  - [ ] retorna erro ao criar conta com dados inválidos
-  - [ ] testes de casos de sucesso e erro de saque
-  - [ ] testes de casos de sucesso e erro de deposito
-  - [ ] testes de casos de sucesso e erro de deposito
+  - [x] verificar se instancia conta é feita corretamente
+  - [x] criar conta de com dados válidos e renda compatível
+  - [x] retorna erro ao criar conta de com dados válidos e renda incompatível
+  - [x] retorna erro ao criar conta com dados inválidos
+  - [x] testes de casos de sucesso e erro de saque
+  - [x] testes de casos de sucesso e erro de deposito
+  - [x] testes de casos de sucesso e erro de deposito
 - testes para pix e transferencia:
-  - [ ] retorna sucesso para valor válido, saldo suficiente e dados válidos
-  - [ ] retorna erro para valor válido, saldo suficiente e dados inválidos
-  - [ ] retorna erro para valor válido, saldo insuficiente e dados válidos
-  - [ ] valor inválido, saldo suficiente e dados válidos
+  - [x] retorna sucesso para valor válido, saldo suficiente e dados válidos
+  - [x] retorna erro para valor válido, saldo suficiente e dados inválidos
+  - [x] retorna erro para valor válido, saldo insuficiente e dados válidos
+  - [x] valor inválido, saldo suficiente e dados válidos
 
 ---
 

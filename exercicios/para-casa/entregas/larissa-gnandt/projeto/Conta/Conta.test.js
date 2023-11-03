@@ -245,4 +245,49 @@ describe("Testes da Classe Conta", () => {
     contaEmissor.destruir();
     contaReceptor.destruir();
   });
+
+  describe("transferencia por pix", () => {
+    let contaOrigem, contaDestino;
+    beforeEach(() => {
+      contaOrigem = new Conta();
+      contaOrigem.criarConta("0001", "10001", 1000);
+
+      contaDestino = new Conta();
+      contaDestino.criarConta("0001", "10002", 1000);
+      contaDestino.criarChavePix("email@email.com", "EMAIL");
+    });
+
+    test("retorna sucesso para valor válido, saldo suficiente e dados válidos", () => {
+      const operacao = contaOrigem.transferirPorPix(
+        500,
+        "email@email.com",
+        "EMAIL"
+      );
+
+      expect(operacao).toBe("Tranferencia pix realizada com sucesso");
+      expect(contaOrigem.getSaldo()).toBe(500);
+      expect(contaDestino.getSaldo()).toBe(1500);
+
+      contaOrigem.destruir();
+      contaDestino.destruir();
+    });
+
+    test("retorna erro para valor válido, saldo suficiente e dados inválidos", () => {
+      expect(() =>
+        contaOrigem.transferirPorPix(500, "email@invalido.com", "EMAIL")
+      ).toThrow("Chave pix não encontrada");
+    });
+
+    test("retorna erro para valor válido, saldo insuficiente e dados válidos", () => {
+      expect(() =>
+        contaOrigem.transferirPorPix(5000, "email@email.com", "EMAIL")
+      ).toThrow("Saldo insuficiente");
+    });
+
+    test("valor inválido, saldo suficiente e dados válidos", () => {
+      expect(() =>
+        contaOrigem.transferirPorPix(-10, "email@email.com", "EMAIL")
+      ).toThrow("Valor inválido de pix");
+    });
+  });
 });
