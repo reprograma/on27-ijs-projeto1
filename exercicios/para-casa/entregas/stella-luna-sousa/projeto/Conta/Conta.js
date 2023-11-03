@@ -88,6 +88,18 @@ class Conta{
         }
     }
 
+    transferirPix(valor, chavePix, tipo){
+        let contaValida = Conta.listaContas.find(contaReceptora => { return contaReceptora.chavesPix[tipo.toLowerCase()] === chavePix; });
+
+        if(!contaValida) throw new Error("Chave PIX não encontrada");
+        if(valor <= 0) throw new Error("Valor inválido para transferencia");
+        if(this.#saldo - valor < 0) throw new Error("Saldo insuficiente");
+
+        this.setSaldo(this.#saldo - valor);
+        contaValida.setSaldo(contaValida.getSaldo() + valor);
+        return "Tranferencia realizada";
+    }
+
     getAgencia(){
         return this.#agencia;
     }
