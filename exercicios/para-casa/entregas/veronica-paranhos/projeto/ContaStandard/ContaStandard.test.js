@@ -48,7 +48,7 @@ describe("Testes da classe Conta Standard", () => {
     const contaStandard = new ContaStandard();
 
     expect(() => contaStandard.criarConta("1234", "12345", 1000, 5000)).toThrow(
-      "Renda superior ao permitido para criação da conta Standard."
+      "Renda incompatível com a criação da conta Standard."
     );
 
     contaStandard.destruir();
