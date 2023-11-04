@@ -1,11 +1,11 @@
 const Conta = require("../Conta/Conta");
 
 class ContaPremium extends Conta {
-  limiteTransacional;
+
 
   constructor() {
     super();
-    this.limiteTransacional = 3000;
+
   }
 
   criarConta(agencia, conta, saldo, renda) {
@@ -25,7 +25,7 @@ class ContaPremium extends Conta {
   }
 
   sacar(valor) {
-    if (this.limiteTransacional >= valor) {
+
       if (valor > 0 && typeof valor === "number") {
         if (super.getSaldo() - valor > 0) {
           const saldoAtualizado = super.getSaldo() - valor;
@@ -36,13 +36,11 @@ class ContaPremium extends Conta {
       } else {
         throw new Error("Valor inválido para saque");
       }
-    } else {
-      throw new Error("O valor ultrapassou o limite transacional.");
-    }
+    
   }
 
   transferir(valor, agencia, conta) {
-    if (valor <= this.limiteTransacional) {
+    
       let contaValida = Conta.listaContas.find((contaReceptora) => {
         let numeroContaReceptora = contaReceptora.getConta();
         let numeroAgenciaReceptora = contaReceptora.getAgencia();
@@ -71,9 +69,7 @@ class ContaPremium extends Conta {
       if (valor > super.getSaldo) {
         return "Saldo insuficiente.";
       }
-    } else {
-      throw new Error("O valor ultrapassou o limite transacional.");
-    }
+    
   }
 }
 

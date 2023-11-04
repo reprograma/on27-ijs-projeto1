@@ -123,33 +123,4 @@ describe("Testes da Classe ContaStandard", () => {
     conta.destruir();
   });
 
-  test("retorna mensagem de erro ao sacar valor maior que o limite transacional", () => {
-    const conta = new ContaPremium();
-    conta.criarConta("1234", "12345", 3100, 8000);
-
-    expect(() => conta.sacar(3010)).toThrow(
-      "O valor ultrapassou o limite transacional."
-    );
-    expect(conta.getSaldo()).toBe(3100);
-
-    // remover conta da lista de contas
-    conta.destruir();
-  });
-
-  test("retorna mensagem de erro ao transferir por numero de conta, valor maior que o limite transacional", () => {
-    const contaEmissora = new ContaPremium();
-    const contaReceptora = new ContaPremium();
-    contaEmissora.criarConta("1234", "12345", 3100, 8000);
-    contaReceptora.criarConta("1234", "12300", 100, 8000);
-
-    expect(() => contaEmissora.transferir(3010, "1234", "12300")).toThrow(
-      "O valor ultrapassou o limite transacional."
-    );
-    expect(contaEmissora.getSaldo()).toBe(3100);
-    expect(contaReceptora.getSaldo()).toBe(100);
-
-    // remover conta da lista de contas
-    contaEmissora.destruir();
-    contaReceptora.destruir();
-  });
 });

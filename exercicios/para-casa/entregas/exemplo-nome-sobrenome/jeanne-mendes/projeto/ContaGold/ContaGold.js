@@ -4,7 +4,7 @@ class ContaGold extends Conta {
 
   constructor() {
     super();
-    this.limiteTransacional = 2000;
+    this.limiteTransacional = 5000;
   }
 
   criarConta(agencia, conta, saldo, renda) {
