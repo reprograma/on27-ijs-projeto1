@@ -1,21 +1,28 @@
 const Conta = require('../Conta/Conta')
-const Cliente = require('../Cliente/Cliente')
 
 class ContaStandard extends Conta{
     limiteTransacional
+
+    constructor(){
+        super();
+        this.limiteTransacional = 1000
+    }
     
-    definirTipoConta(cliente, conta){
-        
-        if(cliente instanceof Cliente && conta instanceof Conta){
-            if(cliente.getRenda() < 5000){
-                this.limiteTransacional = 1000
-                return "Conta Standard"
+    criarConta(agencia, conta, saldo, renda){
+        if(renda < 5000){
+            if(agencia.length === 4 && conta.length === 5 && saldo > 0){
+                super.setAgencia(agencia);
+                super.setConta(conta);
+                super.setSaldo(saldo);
+            
+                return "Conta Standard criada com sucesso";
+            } else {
+                 throw new Error("Dados inválidos para cadastro");
             }
-            else{
-                throw new Error('Renda incompatível')
-            }
+        } else{
+            throw new Error("Renda não compatível.")
         }
-        
+
     }
     
 }

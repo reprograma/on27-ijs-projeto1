@@ -86,6 +86,35 @@ class Conta{
             contaValida.setSaldo(saldoContaReceptora);
             return "Tranferencia realizada"
         }
+
+        if(valor > this.#saldo){
+            return "Saldo insuficiente."
+        }
+    }
+    pix(valor, chavePix, tipo){
+        let contaValida = Conta.listaContas.find(conta => conta.chavesPix[tipo] === chavePix)
+
+        if(!contaValida){
+            throw new Error("Chave pix não encontrada")
+        }
+
+        if(valor < 0){
+            throw new Error("Valor inválido para transferencia")
+        }
+
+        //a conta não pode ficar negativa ao fazer a transferencia, 
+        if(this.#saldo - valor > 0){
+            const saldoAtualizado = this.#saldo - valor;
+            this.setSaldo(saldoAtualizado);
+            const saldoContaReceptora = contaValida.getSaldo() + valor
+            contaValida.setSaldo(saldoContaReceptora);
+            return "Tranferencia realizada"
+        }
+
+        if(valor > this.#saldo){
+            return "Saldo insuficiente."
+        }
+
     }
 
     getAgencia(){
@@ -98,6 +127,14 @@ class Conta{
 
     getSaldo(){
         return this.#saldo;
+    }
+
+    setAgencia(agencia){
+        this.#agencia = agencia
+    }
+
+    setConta(conta){
+        this.#conta = conta
     }
 
     setSaldo(novoSaldo){

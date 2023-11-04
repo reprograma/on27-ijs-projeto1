@@ -98,16 +98,16 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
   - [x] telefone
   - [x] email
   - [x] inexistente
-- [ ] implementacao tranferencia por PIX
+- [x] implementacao tranferencia por PIX
   - vai receber:
-    - [ ] valor
-    - [ ] chavePix
-    - [ ] tipo
+    - [x] valor
+    - [x] chavePix
+    - [x] tipo
   - pode retornar
-    - [ ] sucesso
-    - [ ] "Chave pix não encontrada"
-    - [ ] "Valor inválido de pix"
-    - [ ] "Saldo insuficiente"
+    - [x] sucesso
+    - [x] "Chave pix não encontrada"
+    - [x] "Valor inválido de pix"
+    - [x] "Saldo insuficiente"
 > Sistema possui 3 classificações de conta que diferem na verificação de renda antes de criar a conta e na existencia de limites de transferencia e pix. Use Polimorfismo para esses métodos e não esqueca de adicionar o *limiteTransacional* no construtor 
 - [x] testes e implementação Conta Standard
 - [x] testes e implementação Conta Gold 
@@ -124,10 +124,10 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
   - [x] testes de casos de sucesso e erro de deposito 
   - [x] testes de casos de sucesso e erro de deposito 
 - testes para pix e transferencia:
-  - [ ] retorna sucesso para valor válido, saldo suficiente e dados válidos
-  - [ ] retorna erro para valor válido, saldo suficiente e dados inválidos
-  - [ ] retorna erro para valor válido, saldo insuficiente e dados válidos
-  - [ ] valor inválido, saldo suficiente e dados válidos
+  - [x] retorna sucesso para valor válido, saldo suficiente e dados válidos
+  - [x] retorna erro para valor válido, saldo suficiente e dados inválidos
+  - [x] retorna erro para valor válido, saldo insuficiente e dados válidos
+  - [x] valor inválido, saldo suficiente e dados válidos
 
 ---
 - Antes de abrir o PR colocar todo o projeto dentro de da pasta de entrega com seu nome.

@@ -244,7 +244,7 @@ describe("Testes da Classe Conta", () => {
 
   })
 
-  /* test("retorna sucesso ao fazer uma transferencia pix com valor válido, saldo suficiente, dados válidos", () =>{
+  test("retorna sucesso ao fazer uma transferencia pix com valor válido, saldo suficiente, dados válidos", () =>{
     //setup
     const contaEmissor = new Conta();
     const contaReceptor = new Conta();
@@ -255,9 +255,79 @@ describe("Testes da Classe Conta", () => {
     contaReceptor.criarChavePix("email@email.com", "EMAIL")
 
     //ação
-    const operacao = contaEmissor.chavesPix(10, "email@email.com", "EMAIL")
+    const operacao = contaEmissor.pix(100, "email@email.com", "email")
 
-  }) */
+    //verificação
+    expect(operacao).toBe("Tranferencia realizada")
+
+  }) 
+
+  test("retorna erro para valor válido, saldo suficiente e dados inválidos", () =>{
+    //setup
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta('1234','12345', 200)
+    contaReceptor.criarConta('1234','13345', 500)
+
+    contaReceptor.criarChavePix("email@email.com", "EMAIL")
+
+    //verificação
+    expect(() => contaEmissor.pix(100, "email2@email.com", "email")).toThrow("Chave pix não encontrada")
+
+  }) 
+
+  test("retorna erro para valor válido, saldo insuficiente e dados válidos", () =>{
+    //setup
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta('1234','12345', 200)
+    contaReceptor.criarConta('1234','13345', 500)
+
+    contaReceptor.criarChavePix("email@email.com", "EMAIL")
+    operacao = contaEmissor.pix(1210, "email@email.com", "email")
+
+    //verificação
+    expect(operacao).toBe("Saldo insuficiente.")
+
+  }) 
+
+  test("retorna erro para valor inválido, saldo suficiente e dados válidos", () =>{
+    //setup
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta('1234','12345', 200)
+    contaReceptor.criarConta('1234','13345', 500)
+
+    contaReceptor.criarChavePix("email@email.com", "EMAIL")
+
+    //verificação
+    expect(() => contaEmissor.pix(-1210, "email@email.com", "email")).toThrow("Valor inválido para transferencia")
+
+  }) 
+
+  test("retorna erro ao fazer uma transferencia com valor válido, saldo insuficiente, dados validos", ()=>{
+    //setup
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta("0001", "12345", 1000 )
+    contaReceptor.criarConta("0001", "78945", 500 )
+
+    //acao
+    const operacao = contaEmissor.transferir(1001, "0001", "78945")
+
+    //verificacao
+    expect(operacao).toBe("Saldo insuficiente.")
+    expect(contaEmissor.getSaldo()).toBe(1000)
+    expect(contaReceptor.getSaldo()).toBe(500)
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
+
+  })
 
 
 

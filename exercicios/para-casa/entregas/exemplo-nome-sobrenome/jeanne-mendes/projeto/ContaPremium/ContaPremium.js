@@ -1,18 +1,28 @@
 const Conta = require('../Conta/Conta')
-const Cliente = require('../Cliente/Cliente')
 
 class ContaPremium extends Conta{
-    definirTipoConta(cliente, conta){
-        if(cliente instanceof Cliente && conta instanceof Conta){
-            if(cliente.getRenda() >= 18000){
-                
-                return "Conta Premium"
+    limiteTransacional
+
+    constructor(){
+        super();
+        this.limiteTransacional = 2000
+    }
+    
+    criarConta(agencia, conta, saldo, renda){
+        if(renda > 4999.99 && renda < 8000){
+            if(agencia.length === 4 && conta.length === 5 && saldo > 0){
+                super.setAgencia(agencia);
+                super.setConta(conta);
+                super.setSaldo(saldo);
+            
+                return "Conta Premium criada com sucesso";
+            } else {
+                 throw new Error("Dados inválidos para cadastro");
             }
-            else{
-                throw new Error('Renda incompatível')
-            }
+        } else{
+            throw new Error("Renda não compatível.")
         }
-        
+
     }
 }
 
