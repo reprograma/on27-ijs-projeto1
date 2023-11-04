@@ -110,7 +110,7 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
     - [x] "Saldo insuficiente"
 > Sistema possui 3 classificações de conta que diferem na verificação de renda antes de criar a conta e na existencia de limites de transferencia e pix. Use Polimorfismo para esses métodos e não esqueca de adicionar o *limiteTransacional* no construtor
 - [x] testes e implementação Conta Standard
-- [x] testes e implementação Conta [xld
+- [x] testes e implementação Conta Gold
 - [x] testes e implementação Conta Premium
 - criar testes para os 3 tipos de conta:
   - [x] replicar todos os testes de depositar
