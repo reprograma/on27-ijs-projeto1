@@ -6,32 +6,29 @@ class Cliente {
   #renda;
   #conta;
 
-// Nosso sistema não vai criar objetos sem antes verificar a conta
-// por isso o construtor fica dentro do "registrar", após validar se a conta foi instanciada
+  // Nosso sistema não vai criar objetos sem antes verificar a conta
+  // por isso o construtor fica dentro do "registrar", após validar se a conta foi instanciada
 
-//regra de negocio para criacao de  CLIENTE
-/**
- * eu só vou criar cliente SE ele tiver uma conta existente
- */
-registrar(nome, cpf, renda, conta){
-    if(conta instanceof Conta){
-        this.nome = nome;
-        this.#cpf = cpf;
-        this.#renda = renda;
-        this.#conta = conta;
+  //regra de negocio para criacao de  CLIENTE
+  /**
+   * eu só vou criar cliente SE ele tiver uma conta existente
+   */
+  registrar(nome, cpf, renda, conta) {
+    if (conta instanceof Conta) {
+      this.nome = nome;
+      this.#cpf = cpf;
+      this.#renda = renda;
+      this.#conta = conta;
 
-        return "Cliente Cadastrado";
+      return "Cliente Cadastrado";
     } else {
-        throw new Error("Erro no cadastro, dados inválidos")
+      throw new Error("Erro no cadastro, dados inválidos");
     }
-
   }
 
-  getRenda(){
-    return this.#renda
+  getRenda() {
+    return this.#renda;
   }
-
 }
 
 module.exports = Cliente;
-
