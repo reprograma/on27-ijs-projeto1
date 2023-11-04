@@ -11,7 +11,7 @@ class ContaStandard extends Conta {
 
   criarConta(agencia, conta, saldo) {
     if (this.rendaMensal < 0 || this.rendaMensal >= 4999.99) {
-      throw new Error("Renda não compatível com Conta Premium");
+      throw new Error("Renda não compatível com Conta Standard");
     } else {
       super.criarConta(agencia, conta, saldo)
     }

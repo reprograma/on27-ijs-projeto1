@@ -14,7 +14,7 @@ class ContaGold extends Conta {
 
   criarConta(agencia, conta, saldo) {
     if (this.rendaMensal < 5000 || this.rendaMensal >= 17999.99) {
-      throw new Error("Renda não compatível com Conta Premium");
+      throw new Error("Renda não compatível com Conta Gold");
     } else {
       super.criarConta(agencia, conta, saldo)
     }
