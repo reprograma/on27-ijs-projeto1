@@ -19,7 +19,7 @@ describe("Testes da Classe ContaStandard", () => {
         cliente.registrar('Ana','12345678900', 2000, contaStandard)
         
         //verificação
-        expect(contaStandard.criarConta("1234", "12345", 500, 2000)).toBe("Conta Standard criada com sucesso")
+        expect(contaStandard.criarConta("1234", "12345", 500, 4000)).toBe("Conta Standard criada com sucesso")
 
         // remover conta da lista de contas
 
@@ -28,13 +28,10 @@ describe("Testes da Classe ContaStandard", () => {
 
     test("retorna erro ao criar conta de com dados válidos e renda incompatível", () =>{
       //setup
-      const cliente = new Cliente()
+
       const contaStandard = new ContaStandard()
       //ação
-      
-      
-      cliente.registrar('Ana','12345678900', 5000, contaStandard)
-      
+
       //verificação
       expect(() => contaStandard.criarConta("1234", "12345", 500, 5000)).toThrow("Renda não compatível.")
 
@@ -82,7 +79,7 @@ describe("Testes da Classe ContaStandard", () => {
   
     test("retorna mensagem de erro ao sacar valor maior que o saldo da conta", () => {
       const conta = new ContaStandard();
-      conta.criarConta("1234", "12345", 100, 1000);
+      conta.criarConta("1234", "12345", 100, 4000);
   
       expect(() => conta.sacar(110)).toThrow("Saldo insuficiente");
       expect(conta.getSaldo()).toBe(100);
@@ -93,7 +90,7 @@ describe("Testes da Classe ContaStandard", () => {
   
     test("retorna sucesso ao depositar 100 reais da conta", () => {
       const conta = new ContaStandard();
-      conta.criarConta("1234", "12345", 1000, 1000);
+      conta.criarConta("1234", "12345", 1000, 4000);
   
       conta.depositar(100);
       expect(conta.getSaldo()).toBe(1100);
@@ -104,7 +101,7 @@ describe("Testes da Classe ContaStandard", () => {
   
     test("retorna mensagem de erro ao depositar -100 reais da conta", () => {
       const conta = new ContaStandard();
-      conta.criarConta("1234", "12345", 1000, 3000);
+      conta.criarConta("1234", "12345", 1000, 4000);
   
       expect(() => conta.depositar(-100)).toThrow("Valor inválido para depósito");
       expect(conta.getSaldo()).toBe(1000);
@@ -124,4 +121,35 @@ describe("Testes da Classe ContaStandard", () => {
       conta.destruir()
   
   });
+
+  test("retorna mensagem de erro ao sacar valor maior que o limite transacional", () => {
+    const conta = new ContaStandard();
+    conta.criarConta("1234", "12345", 1100, 4000);
+
+    expect(() => conta.sacar(1010)).toThrow("O valor ultrapassou o limite transacional.");
+    expect(conta.getSaldo()).toBe(1100);
+    
+    // remover conta da lista de contas
+    conta.destruir()
+});
+
+test("retorna mensagem de erro ao transferir por numero de conta, valor maior que o limite transacional", () => {
+  const contaEmissora = new ContaStandard();
+  const contaReceptora = new ContaStandard();
+  contaEmissora.criarConta("1234", "12345", 1100, 4000);
+  contaReceptora.criarConta("1234", "12300", 100, 4000);
+
+  expect(() => contaEmissora.transferir(1010, "1234", "12300")).toThrow("O valor ultrapassou o limite transacional.");
+  expect(contaEmissora.getSaldo()).toBe(1100);
+  expect(contaReceptora.getSaldo()).toBe(100);
+  
+  // remover conta da lista de contas
+  contaEmissora.destruir()
+  contaReceptora.destruir()
+});
+
+
+
+
+  
 });

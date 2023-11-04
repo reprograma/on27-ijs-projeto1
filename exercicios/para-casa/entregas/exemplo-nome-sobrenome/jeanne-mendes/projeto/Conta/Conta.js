@@ -5,6 +5,7 @@ class Conta{
     chavesPix;
     static listaContas = [];
 
+
     constructor(agencia, conta, saldo){
         this.#agencia = agencia;
         this.#conta = conta;
