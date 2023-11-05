@@ -4,7 +4,6 @@ const Conta = require("../Conta/Conta");
 describe("Teste da classe Cliente", ()=>{
     test("verificar se instancia Cliente está sendo criada", ()=>{
         const cliente = new Cliente();
-        //alternativa: expect(cliente).toBeInstanceOf(Cliente)
         expect(cliente instanceof Cliente).toBe(true);
     });
 
