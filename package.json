@@ -1,0 +1,23 @@
+{
+  "name": "on28-ijs-projeto1",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">   <img src=\"assets/reprograma-fundos-claros.png\" alt=\"logo reprograma\" width=\"500\"> </h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osikmelina/on28-ijs-projeto1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osikmelina/on28-ijs-projeto1/issues"
+  },
+  "homepage": "https://github.com/osikmelina/on28-ijs-projeto1#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
