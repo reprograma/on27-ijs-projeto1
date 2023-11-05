@@ -1,35 +1,82 @@
 const Conta = require("../Conta/Conta");
 
-class ContaStandard extends Conta{
+class ContaStandard extends Conta {
+    renda;
+    #limiteTransacao;
+
+    constructor(agencia, conta, saldo, renda) {
+        super(agencia, conta, saldo);
+        this.renda = renda;
+        this.#limiteTransacao = 1000;
+      }
+
+    getlimiteTransacao(){
+        return this.#limiteTransacao;
+    }
+
+
+    setlimiteTransacao(){
+        return this.#limiteTransacao;
+    }
+
     
-    constructor(){
-        super();
-        this.limiteTransacional = 1000;
-        
-    }
-
     criarConta(agencia, conta, saldo, renda){
-        if(renda < 5000){
-            throw new Error("Renda inválida");
+        this.renda = renda;
+        super.criarConta(agencia, conta, saldo);
+        if (this.renda < 5000){
+            return "Conta Standard criada com sucesso";
+          }else {
+            throw new Error("Renda incompatível com a Conta Standard");
+          }
+    }
+
+
+    sacar(valor){
+        if(valor > 0 && typeof valor === "number"){
+            if(super.getSaldo() - valor > 0){
+                const saldoAtualizado = super.getSaldo() - valor;
+                super.setSaldo(saldoAtualizado)
+            } else {
+                throw new Error("Saldo insuficiente")
+            }
+        } else{
+            throw new Error("Valor inválido para saque")
         }
-        
-        if(agencia.length === 4 && conta.length === 5 && saldo > 0){
-            super.setAgencia(agencia);
-            super.SetConta = (conta);
-            super.setSaldo = (saldo);
-        
-            return "Conta criada com sucesso";
+    }
+
+
+    depositar(valor){
+        if(valor > 0 && typeof valor === "number"){
+            const saldoAtualizado = super.getSaldo() + valor;
+            super.setSaldo(saldoAtualizado)
+        }else{
+            throw new Error("Valor inválido para depósito")
+        }
+    }
+
+
+    transferir(valor, agencia, conta) {
+        if (valor > 0 && valor <= this.#limiteTransacao) {
+          super.transferir(valor, agencia, conta);
+          return "Transferência realizada com sucesso";
         } else {
-             throw new Error("Dados inválidos para cadastro");
+            throw new Error("Limite diário de transferência atingido");
         }
+      }
+    
 
-    }
+      pix(valor, chavePix, tipo) {
+        if (valor > this.#limiteTransacao) {
+          throw new Error("Limite diário de transferência Pix atingido");
+        }
+        super.pix(valor, chavePix, tipo);
+        return "Transferência Pix realizada com sucesso";
+      }
 
-    transferir(){
 
-    }
-
-    pix(){
-
+      destruir(){
+        super.destruir()
     }
 }
+
+module.exports = ContaStandard;

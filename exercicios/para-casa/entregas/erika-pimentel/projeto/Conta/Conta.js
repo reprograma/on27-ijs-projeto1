@@ -34,7 +34,6 @@ class Conta{
         } else {
              throw new Error("Dados inválidos para cadastro");
         }
-
     }
     sacar(valor){
         if(valor > 0 && typeof valor === "number"){
@@ -59,12 +58,7 @@ class Conta{
     }
 
     transferir(valor, agencia, conta){
-        //LISTA.find(APELIDO PARA ITEM SELECIONADA => COMPARACAO )
-        /**
-         * antes de fazer a transferencia preciso verificar se a conta receptora existe na lista de contas
-         * contaValida vai me retornar a conta se ela existir e undefined se não existir
-         */
-        let contaValida = Conta.listaContas.find( contaReceptora => {
+        let contaValida = Conta.listaContas.find(contaReceptora => {
             let numeroContaReceptora = contaReceptora.getConta();
             let numeroAgenciaReceptora = contaReceptora.getAgencia();
             return numeroContaReceptora === conta && numeroAgenciaReceptora === agencia;
@@ -78,31 +72,17 @@ class Conta{
             throw new Error("Valor inválido para transferencia")
         }
 
-        //a conta não pode ficar negativa ao fazer a transferencia, 
         if(this.#saldo - valor > 0){
             const saldoAtualizado = this.#saldo - valor;
             this.setSaldo(saldoAtualizado);
             const saldoContaReceptora = contaValida.getSaldo() + valor
             contaValida.setSaldo(saldoContaReceptora);
             return "Tranferencia realizada"
+        } else{
+            throw new Error("Saldo insuficiente")
         }
     }
 
-    getAgencia(){
-        return this.#agencia;
-    }
-
-    getConta(){
-        return this.#conta;
-    }
-
-    getSaldo(){
-        return this.#saldo;
-    }
-
-    setSaldo(novoSaldo){
-        this.#saldo = novoSaldo;
-    }
 
     criarChavePix(chavePix, tipo){
         switch (tipo) {
@@ -134,32 +114,49 @@ class Conta{
                 }
 
             default:
-                return "Chave inexistente"
-                
+                throw new Error ("Chave inexistente")       
         }
-
     }
-    
-    
-    Pix(valor, chavePix, tipo){
-        let contaValida = Conta.listaContas.find( conta => conta.chavesPix[tipo] === chavePix)
+
+    pix(valor, chavePix, tipo){
+        let contaValida = Conta.listaContas.find(conta => conta &&
+            conta.chavesPix && conta.chavesPix[tipo] === chavePix);
 
         if(!contaValida){
-            throw new Error("Conta não encontrada")
+            throw new Error("Chave pix não encontrada")
         }
+
         if(valor < 0){
-            throw new Error("Valor inválido para transferencia")
+            throw new Error("Valor inválido de pix")
         }
+
+        //a conta não pode ficar negativa ao fazer a transferencia, 
         if(this.#saldo - valor > 0){
             const saldoAtualizado = this.#saldo - valor;
             this.setSaldo(saldoAtualizado);
             const saldoContaReceptora = contaValida.getSaldo() + valor
             contaValida.setSaldo(saldoContaReceptora);
-            return "Tranferencia realizada"
+            return "Pix realizado com sucesso"
+        }else {
+            throw new Error("Saldo insuficiente");
         }
-
     }
-    
+
+    getAgencia(){
+        return this.#agencia;
+    }
+
+    getConta(){
+        return this.#conta;
+    }
+
+    getSaldo(){
+        return this.#saldo;
+    }
+
+    setSaldo(novoSaldo){
+        this.#saldo = novoSaldo;
+    }  
 }
 
 module.exports = Conta
