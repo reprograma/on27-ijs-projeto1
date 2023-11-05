@@ -7,7 +7,6 @@ class Cliente {
   #renda;
   #conta;
 
-
 registrar(nome, cpf, renda, conta){
     if(conta instanceof Conta){
         this.nome = nome;
