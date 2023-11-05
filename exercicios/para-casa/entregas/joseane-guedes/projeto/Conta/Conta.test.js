@@ -213,6 +213,8 @@ describe("Testes da Classe Conta", () => {
     const conta = new Conta();
 
     expect(() => conta.criarChavePix('987654321', 'CPF')).toThrowError("Erro: CPF inválido");
+
+    conta.destruir()
   });
 
   test("Deve lançar erro para chave Pix tipo email inválido", () => {
@@ -221,6 +223,8 @@ describe("Testes da Classe Conta", () => {
     expect(() => {
       conta.criarChavePix("josie.com.br", "EMAIL");
     }).toThrowError("Erro: Email inválido");
+
+    conta.destruir()
   });
 
   test("Deve lançar erro para chave Pix de tipo telefone inválido", () => {
@@ -229,12 +233,16 @@ describe("Testes da Classe Conta", () => {
     expect(() => {
       conta.criarChavePix("6543210", "TELEFONE");
     }).toThrowError("Erro: Telefone inválido");
+
+    conta.destruir()
   });
 
   test('Deve lançar erro para chave Pix de tipo inexistente', () => {
     const conta = new Conta();
     const inexistente = conta.criarChavePix('valor', 'INEXISTENTE');
     expect(inexistente).toEqual('Chave inexistente');
+
+    conta.destruir()
   });
 
   test("Deve retornar sucesso ao transferir com valor válido, saldo suficiente e dados válidos", () => {
@@ -291,6 +299,10 @@ describe("Testes da Classe Conta", () => {
 
     expect(contaEmissor.getSaldo()).toBe(saldoOrigemAntes);
     expect(contaReceptor.getSaldo()).toBe(saldoDestinoAntes);
+
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
   });
 
   test('Deve retornar erro para valor inválido, saldo suficiente e dados válidos', () => {
@@ -308,6 +320,10 @@ describe("Testes da Classe Conta", () => {
 
     expect(contaEmissor.getSaldo()).toBe(saldoOrigemAntes);
     expect(contaReceptor.getSaldo()).toBe(saldoDestinoAntes);
+
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
   });
 
 });
