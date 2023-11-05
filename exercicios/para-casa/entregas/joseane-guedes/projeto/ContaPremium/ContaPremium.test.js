@@ -85,7 +85,6 @@ describe("Testes da classe ContaPremium", () => {
         const contaPremium = new ContaPremium('1234', '12345', 10000, RENDA_MINIMA_CONTA_PREMIUM);
         contaPremium.criarChavePix("41951639875", "TELEFONE");
 
-        // Usando uma função wrapper para capturar a exceção ao invés de usar expect()
         const transferenciaInvalida = () => {
             contaPremium.transferirPix(1000, '41951639874', 'telefone');
         };
