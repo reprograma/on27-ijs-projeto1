@@ -72,7 +72,6 @@ describe("Testes da Classe Conta", () => {
     expect(() => conta.sacar(-100)).toThrow("Valor inválido para saque");
     expect(conta.getSaldo()).toBe(1000);
     
-    // remover conta da lista de contas
     conta.destruir()
 });
 
@@ -162,6 +161,17 @@ describe("Testes da Classe Conta", () => {
     conta.destruir()
   });
 
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com email invalido", () => {
+    //setup
+    const conta = new Conta();
+
+    //verificacao
+    expect(() => conta.criarChavePix("analu.com", "EMAIL")).toThrow("Erro: Email inválido");
+    
+    // remover conta da lista de contas
+    conta.destruir()
+});
+
   test("criar uma chave pix por telefone com sucesso", () => {
     //setup
     const conta = new Conta();
@@ -176,6 +186,28 @@ describe("Testes da Classe Conta", () => {
     // remover conta da lista de contas
     conta.destruir()
   });
+
+  test("retornar mensagem de erro ao tentar cadastrar chave pix com telefone invalido", () => {
+    //setup
+    const conta = new Conta();
+
+    //verificacao
+    expect(() => conta.criarChavePix("1345", "TELEFONE")).toThrow("Erro: Telefone inválido");
+    
+    // remover conta da lista de contas
+    conta.destruir()
+});
+
+test("retornar mensagem de erro ao tentar cadastrar chave pix com tipo invalido", () => {
+  //setup
+  const conta = new Conta();
+
+  //verificacao
+  expect(conta.criarChavePix("1345", "CEP")).toBe("Chave inexistente");
+  
+  // remover conta da lista de contas
+  conta.destruir()
+});
 
   /**
    * TRANFERENCIA
@@ -208,9 +240,5 @@ describe("Testes da Classe Conta", () => {
     contaReceptor.destruir();
 
   })
-
-
-
-
 
 });

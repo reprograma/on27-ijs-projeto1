@@ -32,7 +32,7 @@ class Conta{
         
             return "Conta criada com sucesso";
         } else {
-             throw new Error("Dados inválidos para cadastro");
+            throw new Error("Dados inválidos para cadastro");
         }
 
     }
@@ -84,7 +84,9 @@ class Conta{
             this.setSaldo(saldoAtualizado);
             const saldoContaReceptora = contaValida.getSaldo() + valor
             contaValida.setSaldo(saldoContaReceptora);
-            return "Tranferencia realizada"
+            return "Tranferencia realizada";
+        }else{
+            throw new Error("Saldo insuficiente");
         }
     }
 
@@ -139,7 +141,29 @@ class Conta{
         }
 
     }
-
+    
+    transferirPix(valor, chavePix, tipo) {
+        let contaValida = Conta.listaContas.find(contaReceptora => {
+            return contaReceptora.chavesPix[tipo.toLowerCase()] === chavePix;
+        });
+    
+        if (!contaValida) {
+            throw new Error("Chave pix não encontrada");
+        }
+    
+        if (valor <= 0) {
+            throw new Error("Valor inválido de pix");
+        }
+    
+        if ((this.#saldo - valor) < 0) {
+            throw new Error("Saldo insuficiente");
+        }
+    
+        this.setSaldo(this.#saldo - valor);
+        contaValida.setSaldo(contaValida.getSaldo() + valor);
+    
+        return "Transferência realizada com sucesso";
+    }    
     
 }
 

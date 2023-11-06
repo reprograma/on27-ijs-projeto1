@@ -94,24 +94,24 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
       - [x] retornar erro caso conta de recebimento invalida
 
 ## Para o lar
-- [ ] testes de erro para metodo criarChavePix 
-  - [ ] telefone
-  - [ ] email
-  - [ ] inexistente
+- [x] testes de erro para metodo criarChavePix 
+  - [x] telefone
+  - [x] email
+  - [x] inexistente
 - [ ] implementacao tranferencia por PIX
   - vai receber:
-    - [ ] valor
-    - [ ] chavePix
-    - [ ] tipo
+    - [x] valor
+    - [x] chavePix
+    - [x] tipo
   - pode retornar
-    - [ ] sucesso
-    - [ ] "Chave pix não encontrada"
-    - [ ] "Valor inválido de pix"
-    - [ ] "Saldo insuficiente"
+    - [x] sucesso
+    - [x] "Chave pix não encontrada"
+    - [x] "Valor inválido de pix"
+    - [x] "Saldo insuficiente"
 > Sistema possui 3 classificações de conta que diferem na verificação de renda antes de criar a conta e na existencia de limites de transferencia e pix. Use Polimorfismo para esses métodos e não esqueca de adicionar o *limiteTransacional* no construtor 
-- [ ] testes e implementação Conta Standard
-- [ ] testes e implementação Conta Gold 
-- [ ] testes e implementação Conta Premium
+- [] testes e implementação Conta Standard
+- [] testes e implementação Conta Gold 
+- [] testes e implementação Conta Premium
 - criar testes para os 3 tipos de conta: 
   - [ ] replicar todos os testes de depositar
   - [ ] replicar todos os testes de sacar
