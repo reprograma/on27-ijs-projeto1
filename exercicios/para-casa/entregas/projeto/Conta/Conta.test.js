@@ -161,4 +161,68 @@ describe("Testes da Classe Conta", () => {
   })
 
 
+ 
+  test("retorna ERRO ao tentar realizar uma transferência via Pix", () => {
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta("0001", "12345", 1000);
+    contaReceptor.criarConta("0001", "78945", 500);
+
+    expect(() => contaEmissor.pix(100, "email@email.com", "EMAIL")).toThrow("Chave PIX não encontrada");
+    expect(contaEmissor.getSaldo()).toBe(1000);
+    expect(contaReceptor.getSaldo()).toBe(500);
+
+    contaEmissor.destruir()
+    contaReceptor.destruir()
+  })
+
+  test("retorna erro ao fazer uma transferencia PIX com valor inválido", ()=>{
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+  
+    contaEmissor.criarConta("0001", "12345", 1000);
+    contaReceptor.criarConta("0001", "78945", 500);
+  
+    contaEmissor.criarChavePix("40814360879", "CPF");
+  
+    expect(() => contaEmissor.transferirPix(-100, "40814360879", "CPF")).toThrow();
+  
+    contaEmissor.destruir();
+      contaReceptor.destruir();
+    });
+
+    test("retorna erro ao fazer uma transferencia PIX com saldo insuficiente", ()=>{
+      const contaEmissor = new Conta();
+      const contaReceptor = new Conta();
+    
+      contaEmissor.criarConta("0001", "12345", 1000);
+      contaReceptor.criarConta("0001", "78945", 500);
+    
+      contaEmissor.criarChavePix("40814360879", "CPF");
+    
+      expect(() => contaEmissor.transferirPix(1100, "40814360879", "CPF")).toThrow();
+    
+      contaEmissor.destruir();
+        contaReceptor.destruir();
+      });
+
+      test("retorna erro ao fazer uma transferencia PIX com chave PIX inválida", ()=>{
+        const contaEmissor = new Conta();
+        const contaReceptor = new Conta();
+      
+        contaEmissor.criarConta("0001", "12345", 1000);
+        contaReceptor.criarConta("0001", "78945", 500);
+      
+        expect(() => contaEmissor.transferirPix(100, "2345", "xxx")).toThrow();
+      
+        contaEmissor.destruir();
+          contaReceptor.destruir();
+        });
+    
+
 });
+
+
+
+
