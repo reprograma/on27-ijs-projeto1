@@ -209,6 +209,27 @@ describe("Testes da Classe Conta", () => {
 
   })
 
+  /**
+   * eu consigo fazer pix sem ter pix
+   * verifcar se conta receptor tem pix
+   */
+  test('retorna sucesso ao fazer um pix com valor válido, saldo suficiente, dados validos', ()=> {
+        //setup
+    const contaEmissor = new Conta();
+    const contaReceptor = new Conta();
+
+    contaEmissor.criarConta("0001", "12345", 1000 )
+    contaReceptor.criarConta("0001", "78945", 500 )
+
+    //acao 
+    contaReceptor.criarChavePix('email@email.com','EMAIL');
+    const operacao =  contaEmissor.pix(100, 'email@email.com', 'email')
+
+    //verificacao
+    expect(operacao).toBe("Pix realizado")
+    expect(contaEmissor.getSaldo()).toBe(900)
+    expect(contaReceptor.getSaldo()).toBe(600)
+  })
 
 
 
