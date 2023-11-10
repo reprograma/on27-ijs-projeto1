@@ -76,4 +76,3 @@ O cliente também pode depositar dinheiro em sua conta, passando apenas o valor 
         - [ ] email
         - [ ] telefone
         - [ ] cpf
-

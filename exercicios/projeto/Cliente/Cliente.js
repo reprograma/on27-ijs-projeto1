@@ -20,7 +20,7 @@ class Cliente {
   //         Renda: this.renda,
   //     }}`
 
-  registrar(nome, cpf, renda, conta) { // aqui é um construtor
+  registrar(nome, cpf, renda, conta) { // aqui é um construtor, construtor() não é uma palavra reservada, é apenas uma convenção
     if (conta instanceof Conta) {
       this.nome = nome;
       this.#cpf = cpf;
