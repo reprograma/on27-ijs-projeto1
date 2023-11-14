@@ -1,9 +1,10 @@
 const ContaGold = require("./ContaGold");
 
 describe("Testes da classe Conta Gold", () => {
+  const contaGold = new ContaGold();
+
   //TESTE INTANCIAR A CONTA
   test("verificar se instância foi criada corretamente", () => {
-    const contaGold = new ContaGold();
     expect(contaGold).toBeInstanceOf(ContaGold);
 
     contaGold.destruir();
@@ -159,6 +160,18 @@ describe("Testes da classe Conta Gold", () => {
     contaReceptor.destruir();
   });
 
+  test("retornar erro ao fazer uma transferência acima do limite diário de transações", () => {
+    const contaEmissor = new ContaGold("0001", "12345", 1000, 6000);
+    const contaReceptor = new ContaGold("0001", "78945", 500, 8000);
+
+    expect(() => contaEmissor.transferir(5010, "0001", "78945")).toThrow(
+      "Limite de transações diárias atingido."
+    );
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
   //TESTE MÉTODO TRANSFERIR POR PIX
   test("retornar sucesso ao fazer uma transferência por pix com valor válido, saldo suficiente, dados válidos", () => {
     const contaEmissor = new ContaGold("0001", "12345", 1000, 6000);
@@ -213,6 +226,20 @@ describe("Testes da classe Conta Gold", () => {
     expect(() =>
       contaEmissor.transferirPix(-100, "21995460671", "TELEFONE")
     ).toThrow("Valor inválido para transferência");
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
+  test("retorna mensagem de erro se o valor for acima do limite diário de transações", () => {
+    const contaEmissor = new ContaGold("0001", "12345", 1000, 6000);
+    const contaReceptor = new ContaGold("0001", "78945", 500, 8000);
+
+    contaReceptor.criarChavePix("21995460671", "TELEFONE");
+
+    expect(() =>
+      contaEmissor.transferirPix(5010, "21995460671", "TELEFONE")
+    ).toThrow("Limite de transações diárias atingido.");
 
     contaEmissor.destruir();
     contaReceptor.destruir();

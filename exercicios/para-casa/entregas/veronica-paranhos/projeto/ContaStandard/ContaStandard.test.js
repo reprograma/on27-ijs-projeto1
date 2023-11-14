@@ -157,6 +157,18 @@ describe("Testes da classe Conta Standard", () => {
     contaReceptor.destruir();
   });
 
+  test("retornar erro ao fazer uma transferência acima do limite diário de transações", () => {
+    const contaEmissor = new ContaStandard("0001", "12345", 1000, 3000);
+    const contaReceptor = new ContaStandard("0001", "78945", 500, 4000);
+
+    expect(() => contaEmissor.transferir(1010, "0001", "78945")).toThrow(
+      "Limite de transações diárias atingido."
+    );
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
   //TESTE MÉTODO TRANSFERIR POR PIX
   test("retornar sucesso ao fazer uma transferência por pix com valor válido, saldo suficiente, dados válidos", () => {
     const contaEmissor = new ContaStandard("0001", "12345", 1000, 3000);
@@ -211,6 +223,20 @@ describe("Testes da classe Conta Standard", () => {
     expect(() =>
       contaEmissor.transferirPix(-100, "21995460671", "TELEFONE")
     ).toThrow("Valor inválido para transferência");
+
+    contaEmissor.destruir();
+    contaReceptor.destruir();
+  });
+
+  test("retorna mensagem de erro se o valor for acima do limite diário de transações", () => {
+    const contaEmissor = new ContaStandard("0001", "12345", 1000, 3000);
+    const contaReceptor = new ContaStandard("0001", "78945", 500, 4000);
+
+    contaReceptor.criarChavePix("21995460671", "TELEFONE");
+
+    expect(() =>
+      contaEmissor.transferirPix(1010, "21995460671", "TELEFONE")
+    ).toThrow("Limite de transações diárias atingido.");
 
     contaEmissor.destruir();
     contaReceptor.destruir();

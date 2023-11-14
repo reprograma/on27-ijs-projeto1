@@ -9,11 +9,11 @@ class ContaPremium extends Conta {
   }
 
   criarConta(agencia, conta, saldo, renda) {
-    if (renda < 17999.99)
+    const VALOR_MINIMO_RENDA_PREMIUM = 18000;
+    if (renda < VALOR_MINIMO_RENDA_PREMIUM)
       throw new Error("Renda incompatível com a criação da conta Premium.");
 
-    super.criarConta(agencia, conta, saldo);
-    return "Conta criada com sucesso!";
+    return super.criarConta(agencia, conta, saldo);
   }
 }
 

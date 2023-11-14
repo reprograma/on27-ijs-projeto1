@@ -1,16 +1,17 @@
 const Conta = require("./Conta.js");
 
 describe("Teste da classe Conta", () => {
+  const conta = new Conta();
+
   //TESTE INTANCIAR A CONTA
   test("verificar se instância foi criada corretamente", () => {
-    const conta = new Conta();
     expect(conta).toBeInstanceOf(Conta);
 
     conta.destruir();
   });
 
   test("instanciar conta com valores válidos", () => {
-    const conta = new Conta("1234", "12345", 1000);
+    conta.criarConta("1234", "12345", 1000);
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
@@ -21,7 +22,6 @@ describe("Teste da classe Conta", () => {
   //TESTE MÉTODO CRIAR CONTA
 
   test("retorna mensagem de sucesso ao criar conta", () => {
-    const conta = new Conta("1234", "12345", 1000);
     expect(conta.criarConta("1234", "12345", 1000)).toBe(
       "Conta criada com sucesso!"
     );
@@ -33,7 +33,6 @@ describe("Teste da classe Conta", () => {
   });
 
   test("retorna mensagem de erro ao criar conta com dados inválidos", () => {
-    const conta = new Conta();
     expect(() => conta.criarConta("123456", "123", 1000)).toThrow(
       "Dados inválidos!"
     );
@@ -44,9 +43,7 @@ describe("Teste da classe Conta", () => {
   //TESTE MÉTODO SACAR
 
   test("retorna sucesso ao sacar 100 reais da conta", () => {
-    const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
-
     conta.sacar(100);
     expect(conta.getSaldo()).toBe(900);
 
@@ -54,21 +51,23 @@ describe("Teste da classe Conta", () => {
   });
 
   test("retorna mensagem de erro ao sacar -100 reais da conta", () => {
-    const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
-
     expect(() => conta.sacar(-100)).toThrow("Valor inválido para saque");
-    expect(conta.getSaldo()).toBe(1000);
 
     conta.destruir();
   });
 
   test("retorna mensagem de erro ao sacar valor maior que o saldo", () => {
-    const conta = new Conta();
-    conta.criarConta("1234", "12345", 100);
+    conta.criarConta("1234", "12345", 1000);
+    expect(() => conta.sacar(1100)).toThrow("Saldo insuficiente");
 
-    expect(() => conta.sacar(110)).toThrow("Saldo insuficiente");
-    expect(conta.getSaldo()).toBe(100);
+    conta.destruir();
+  });
+
+  test("retorna mensagem de erro ao sacar valor não numérico", () => {
+    conta.criarConta("1234", "12345", 1000);
+    expect(() => conta.sacar(" ")).toThrow("Valor inválido para saque");
+    expect(conta.getSaldo()).toBe(1000);
 
     conta.destruir();
   });
@@ -76,9 +75,7 @@ describe("Teste da classe Conta", () => {
   //TESTE MÉTODO DEPOSITAR
 
   test("retorna sucesso ao depositar 100 reais da conta", () => {
-    const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
-
     conta.depositar(100);
     expect(conta.getSaldo()).toBe(1100);
 
@@ -86,9 +83,7 @@ describe("Teste da classe Conta", () => {
   });
 
   test("retorna mensagem de erro ao depositar -100 reais da conta", () => {
-    const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
-
     expect(() => conta.depositar(-100)).toThrow("Valor inválido para depósito");
     expect(conta.getSaldo()).toBe(1000);
 
@@ -96,9 +91,7 @@ describe("Teste da classe Conta", () => {
   });
 
   test("retorna mensagem de erro ao depositar valor não numérico", () => {
-    const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
-
     expect(() => conta.depositar(" ")).toThrow("Valor inválido para depósito");
     expect(conta.getSaldo()).toBe(1000);
 

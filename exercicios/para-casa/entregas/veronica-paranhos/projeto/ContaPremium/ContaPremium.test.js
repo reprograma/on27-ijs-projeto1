@@ -9,7 +9,7 @@ describe("Testes da classe Conta Premium", () => {
     contaPremium.destruir();
   });
 
-  test("instanciar conta Standard com valores válidos", () => {
+  test("instanciar conta Premium com valores válidos", () => {
     const contaPremium = new ContaPremium("1234", "12345", 1000, 18000);
     expect(contaPremium.getAgencia()).toBe("1234");
     expect(contaPremium.getConta()).toBe("12345");

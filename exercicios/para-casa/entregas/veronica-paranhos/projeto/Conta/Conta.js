@@ -73,16 +73,21 @@ class Conta {
     }
   }
 
-  transferir(valor, agencia, conta) {
-    let contaValida = Conta.listaContas.find((contaReceptora) => {
-      let numeroContaReceptora = contaReceptora.getConta();
-      let numeroAgenciaReceptora = contaReceptora.getAgencia();
+  verificacaoDeContaValida(agenciaRecetora, contaReceptora) {
+    const contaValida = Conta.listaContas.find((contaLista) => {
+      let numeroContaReceptora = contaLista.getConta();
+      let numeroAgenciaReceptora = contaLista.getAgencia();
       return (
-        numeroContaReceptora === conta && numeroAgenciaReceptora === agencia
+        numeroContaReceptora === contaReceptora &&
+        numeroAgenciaReceptora === agenciaRecetora
       );
     });
 
-    if (!contaValida) {
+    return contaValida;
+  }
+
+  transferir(valor, agencia, conta) {
+    if (!this.verificacaoDeContaValida(agencia, conta)) {
       throw new Error("Conta não encontrada");
     }
 
@@ -90,12 +95,18 @@ class Conta {
       throw new Error("Valor inválido para transferência");
     }
 
-    //a conta não pode ficar negativa ao fazer a transferencia,
     if (this.getSaldo() - valor > 0) {
       const saldoAtualizado = this.getSaldo() - valor;
       this.setSaldo(saldoAtualizado);
+
+      const contaValida = Conta.listaContas.find(
+        (contaReceptora) =>
+          contaReceptora.getConta() === conta &&
+          contaReceptora.getAgencia() === agencia
+      );
       const saldoContaReceptora = contaValida.getSaldo() + valor;
       contaValida.setSaldo(saldoContaReceptora);
+
       return "Transferência realizada com sucesso";
     } else {
       throw new Error("Saldo insuficiente.");
@@ -151,7 +162,6 @@ class Conta {
       throw new Error("Valor inválido para transferência");
     }
 
-    //a conta não pode ficar negativa ao fazer a transferencia,
     if (this.#saldo - valor > 0) {
       const saldoAtualizado = this.#saldo - valor;
       this.setSaldo(saldoAtualizado);
