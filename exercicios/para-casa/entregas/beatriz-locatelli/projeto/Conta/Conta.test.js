@@ -14,7 +14,7 @@ describe("Testes da Classe Conta", () => {
     const conta = new Conta();
     expect(conta instanceof Conta).toBe(true);
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("instanciar conta com valores validos", () => {
@@ -29,7 +29,7 @@ describe("Testes da Classe Conta", () => {
     expect(conta.getSaldo()).toBe(1000);
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retorna mensagem de sucesso ao criar conta", () => {
@@ -41,7 +41,7 @@ describe("Testes da Classe Conta", () => {
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retorna mensagem de erro ao tentar criar conta com dados invalido", () => {
@@ -51,7 +51,7 @@ describe("Testes da Classe Conta", () => {
     );
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   //teste saque
@@ -62,17 +62,17 @@ describe("Testes da Classe Conta", () => {
     conta.sacar(100);
     expect(conta.getSaldo()).toBe(900);
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retorna mensagem de erro ao sacar -100 reais da conta", () => {
     const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
 
-    expect(() => conta.sacar(-100)).toThrow("Valor inválido para saque");
+    expect(() => conta.sacar(-100)).toThrow("Valor inválido. O valor precisa ser maior que zero e precisa ser um número.");
     expect(conta.getSaldo()).toBe(1000);
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retorna mensagem de erro ao sacar valor maior que o saldo da conta", () => {
@@ -83,7 +83,7 @@ describe("Testes da Classe Conta", () => {
     expect(conta.getSaldo()).toBe(100);
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   //teste deposito
@@ -95,29 +95,29 @@ describe("Testes da Classe Conta", () => {
     expect(conta.getSaldo()).toBe(1100);
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retorna mensagem de erro ao depositar -100 reais da conta", () => {
     const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
 
-    expect(() => conta.depositar(-100)).toThrow("Valor inválido para depósito");
+    expect(() => conta.depositar(-100)).toThrow("Valor inválido. O valor precisa ser maior que zero e precisa ser um número.");
     expect(conta.getSaldo()).toBe(1000);
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retorna mensagem de erro ao depositar valor não numerico", () => {
     const conta = new Conta();
     conta.criarConta("1234", "12345", 1000);
 
-    expect(() => conta.depositar(" ")).toThrow("Valor inválido para depósito");
+    expect(() => conta.depositar(" ")).toThrow("Valor inválido. O valor precisa ser maior que zero e precisa ser um número.");
     expect(conta.getSaldo()).toBe(1000);
 
 
-    conta.destruir()
+    conta.destruirConta()
 
   });
 
@@ -134,7 +134,7 @@ describe("Testes da Classe Conta", () => {
     expect(conta.chavesPix.cpf).toBe("40814360879");
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix com cpf invalido", () => {
@@ -145,7 +145,7 @@ describe("Testes da Classe Conta", () => {
     expect(() => conta.criarChavePix("124861", "CPF")).toThrow("Erro: CPF inválido");
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("criar uma chave pix por email com sucesso", () => {
@@ -160,7 +160,7 @@ describe("Testes da Classe Conta", () => {
     expect(conta.chavesPix.email).toBe("bia@email.com");
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix com email invalido", () => {
@@ -171,7 +171,7 @@ describe("Testes da Classe Conta", () => {
     expect(() => conta.criarChavePix("biaaa@", "EMAIL")).toThrow("Erro: EMAIL inválido");
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("criar uma chave pix por telefone com sucesso", () => {
@@ -186,7 +186,7 @@ describe("Testes da Classe Conta", () => {
     expect(conta.chavesPix.telefone).toBe("11951639874");
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix com telefone invalido", () => {
@@ -197,7 +197,7 @@ describe("Testes da Classe Conta", () => {
     expect(() => conta.criarChavePix("44555887", "TELEFONE")).toThrow("Erro: telefone inválido");
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix inexistente", () => {
@@ -208,7 +208,7 @@ describe("Testes da Classe Conta", () => {
     expect(() => conta.criarChavePix("Rua Joao", "ENDERECO")).toThrow("Erro: chave pix inexistente");
 
 
-    conta.destruir()
+    conta.destruirConta()
   });
 
   //teste transferencia
@@ -239,8 +239,8 @@ describe("Testes da Classe Conta", () => {
     expect(contaEmissor.getSaldo()).toBe(900)
     expect(contaReceptor.getSaldo()).toBe(600)
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
 
   })
 
@@ -255,8 +255,8 @@ describe("Testes da Classe Conta", () => {
     const operacao = contaEmissor.transferir(100, "0001", "785")
     expect(() => operacao).toThrow("Conta inválida. Transferência não conluida.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   test("retorna erro se saldo da conta emissora for insuficiente", () => {
@@ -271,8 +271,8 @@ describe("Testes da Classe Conta", () => {
 
     expect(() => operacao).toThrow("Saldo insuficiente.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   test("retorna erro se valor da transferência for negativo", () => {
@@ -287,8 +287,8 @@ describe("Testes da Classe Conta", () => {
 
     expect(() => operacao).toThrow("Saldo insuficiente.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   // teste transferencia por pix
@@ -310,8 +310,8 @@ describe("Testes da Classe Conta", () => {
     expect(contaEmissor.getSaldo()).toBe(900)
     expect(contaReceptor.getSaldo()).toBe(600)
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
 
   })
 
@@ -331,8 +331,8 @@ describe("Testes da Classe Conta", () => {
     //verificacao
     expect(() => operacao).toThrow("Chave pix não econtrada. Transferência não conluida.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   test("retorna erro se saldo da conta recepctora for insuficiente", () => {
@@ -351,8 +351,8 @@ describe("Testes da Classe Conta", () => {
     //verificacao
     expect(() => operacao).toThrow("Saldo insuficiente. Transferência não conluida.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   test("retorna erro se valor da transferência for negativo", () => {
@@ -369,10 +369,10 @@ describe("Testes da Classe Conta", () => {
     const operacao = contaEmissor.transferirPorPix(-200, "nova@email.com", "EMAIL")
 
     //verificacao
-    expect(() => operacao).toThrow("Valor inválido. Transferência não conluida.")
+    expect(() => operacao).toThrow("Valor inválido. O valor precisa ser maior que zero e precisa ser um número.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
 });

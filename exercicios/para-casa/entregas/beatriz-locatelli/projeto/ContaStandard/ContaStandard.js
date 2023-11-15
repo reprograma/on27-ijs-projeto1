@@ -1,51 +1,63 @@
 const Conta = require("../Conta/Conta");
-
+const RENDA = require("../Utils")
 class ContaStandard extends Conta {
     renda;
-    #limiteTransacional;
 
     constructor(agencia, conta, saldo, renda) {
         super(agencia, conta, saldo);
         this.renda = renda;
-        this.#limiteTransacional = 1000
     }
 
     criarConta(agencia, conta, saldo, renda) {
-        if (renda > 4999.99) {
+        if (renda > RENDA.standard) {
             throw new Error("Dados inválidos para cadastro");
         }
         super.criarConta(agencia, conta, saldo)
         return "Conta criada com sucesso!"
     }
 
-    sacar(valor) {
-        if (valor > this.#limiteTransacional) {
-            throw new Error("Não foi possível realizar saque. Limite de transação diário é de R$1.000,00 reais");
+    verificaLimiteTranscional(valor) {
+        if (valor < LIMITE_TRANSACIONAL.standard) {
+            return valor
+        } else {
+            throw new Error("Não foi possível realizar essa transação. Limite de transação diário é de R$1.000,00 reais");
         }
-        super.sacar(valor)
+    }
+
+    sacar(valor) {
+        try {
+            verificaLimiteTranscional(valor)
+            super.sacar(valor)
+        } catch (error) {
+            throw error
+        }
     }
 
     depositar(valor) {
-        if (valor > this.#limiteTransacional) {
-            throw new Error("Não foi possível realizar depósito. Limite de transação diário é de R$1.000,00 reais");
+        try {
+            verificaLimiteTranscional(valor)
+            super.depositar(valor)
+        } catch (error) {
+            throw error
         }
-        super.depositar(valor)
     }
 
     transferir(valor, agencia, conta) {
-        if (valor > this.limiteTransacional) {
-            throw new Error("Não foi possível realizar transfeência. Limite de transação diário é de R$1.000,00 reais");
+        try {
+            verificaLimiteTranscional(valor)
+            super.transferir(valor, agencia, conta)
+        } catch (error) {
+            throw error
         }
-        super.transferir(valor, agencia, conta)
-        return "Tranferencia realizada"
     }
 
-    transferirPorPix(valor, chavePix, tipo){
-        if (valor > this.#limiteTransacional){
-            throw new Error("Não foi possível realizar transfeência. Limite de transação diário é de R$1.000,00 reais");
+    transferirPorPix(valor, chavePix, tipo) {
+        try {
+            verificaLimiteTranscional(valor)
+            super.transferirPorPix(valor, chavePix, tipo)
+        } catch (error) {
+            throw error
         }
-        super.transferirPorPix(valor, chavePix, tipo)
-        return "Tranferencia por pix realizada"
     }
 }
 

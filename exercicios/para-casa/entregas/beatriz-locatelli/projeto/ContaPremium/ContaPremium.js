@@ -9,7 +9,7 @@ class ContaPremium extends Conta {
     }
 
     criarConta(agencia, conta, saldo, renda) {
-        if (renda < 18000) {
+        if (renda < RENDA.premium) {
             throw new Error("Dados inválidos para cadastro");
         }
         super.criarConta(agencia, conta, saldo)

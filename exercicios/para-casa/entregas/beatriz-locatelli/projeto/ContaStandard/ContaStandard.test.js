@@ -31,7 +31,7 @@ describe("Testes da classe conta Standard", () => {
     contaStandard.sacar(100);
     expect(contaStandard.getSaldo()).toBe(1900);
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   //teste saque
@@ -42,7 +42,7 @@ describe("Testes da classe conta Standard", () => {
     expect(() => contaStandard.sacar(-100)).toThrow("Valor inválido para saque");
     expect(contaStandard.getSaldo()).toBe(2000);
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("retorna mensagem de erro ao sacar valor maior que o saldo da conta Standard", () => {
@@ -52,7 +52,7 @@ describe("Testes da classe conta Standard", () => {
     expect(() => contaStandard.sacar(110)).toThrow("Saldo insuficiente");
     expect(contaStandard.getSaldo()).toBe(100);
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("retorna sucesso ao depositar 100 reais da conta Standard", () => {
@@ -62,7 +62,7 @@ describe("Testes da classe conta Standard", () => {
     contaStandard.depositar(100);
     expect(contaStandard.getSaldo()).toBe(2100);
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
 
@@ -74,7 +74,7 @@ describe("Testes da classe conta Standard", () => {
     expect(() => contaStandard.depositar(-100)).toThrow("Valor inválido para depósito");
     expect(contaStandard.getSaldo()).toBe(2000);
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("retorna mensagem de erro ao depositar valor não numerico", () => {
@@ -84,7 +84,7 @@ describe("Testes da classe conta Standard", () => {
     expect(() => contaStandard.depositar(" ")).toThrow("Valor inválido para depósito");
     expect(contaStandard.getSaldo()).toBe(2000);
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
 
   });
 
@@ -101,7 +101,7 @@ describe("Testes da classe conta Standard", () => {
     expect(operacao).toBe("Chave Pix por cpf criada com sucesso");
     expect(contaStandard.chavesPix.cpf).toBe("40814360879");
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix com cpf invalido", () => {
@@ -111,7 +111,7 @@ describe("Testes da classe conta Standard", () => {
     //verificacao
     expect(() => contaStandard.criarChavePix("124861", "CPF")).toThrow("Erro: CPF inválido");
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("criar uma chave pix por email com sucesso", () => {
@@ -125,7 +125,7 @@ describe("Testes da classe conta Standard", () => {
     expect(operacao).toBe("Chave Pix por email criada com sucesso");
     expect(contaStandard.chavesPix.email).toBe("bia@email.com");
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix com email invalido", () => {
@@ -135,7 +135,7 @@ describe("Testes da classe conta Standard", () => {
     //verificacao
     expect(() => contaStandard.criarChavePix("biaaa@", "EMAIL")).toThrow("Erro: EMAIL inválido");
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("criar uma chave pix por telefone com sucesso", () => {
@@ -149,7 +149,7 @@ describe("Testes da classe conta Standard", () => {
     expect(operacao).toBe("Chave Pix por telefone criada com sucesso");
     expect(contaStandard.chavesPix.telefone).toBe("11951639874");
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix com telefone invalido", () => {
@@ -159,7 +159,7 @@ describe("Testes da classe conta Standard", () => {
     //verificacao
     expect(() => contaStandard.criarChavePix("44555887", "TELEFONE")).toThrow("Erro: TELEFONE inválido");
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
   test("retornar mensagem de erro ao tentar cadastrar chave pix inexistente", () => {
@@ -169,7 +169,7 @@ describe("Testes da classe conta Standard", () => {
     //verificacao
     expect(() => contaStandard.criarChavePix("Rua Joao", "ENDERECO")).toThrow("Erro: chave pix inexistente");
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
 
@@ -190,8 +190,8 @@ describe("Testes da classe conta Standard", () => {
     expect(contaStandardEmissor.getSaldo()).toBe(900)
     expect(contaReceptor.getSaldo()).toBe(600)
 
-    contaStandardEmissor.destruir();
-    contaReceptor.destruir();
+    contaStandardEmissor.destruirConta();
+    contaReceptor.destruirConta();
 
   })
 
@@ -206,8 +206,8 @@ describe("Testes da classe conta Standard", () => {
     const operacao = contaEmissor.transferir(100, "0001", "785")
     expect(() => operacao).toThrow("Conta inválida. Transferência não conluida.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   test("retorna erro se saldo da conta emissora for insuficiente", () => {
@@ -222,8 +222,8 @@ describe("Testes da classe conta Standard", () => {
 
     expect(() => operacao).toThrow("Saldo insuficiente.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
   test("retorna erro se valor da transferência for negativo", () => {
     const contaEmissor = new ContaStandard();
@@ -237,8 +237,8 @@ describe("Testes da classe conta Standard", () => {
 
     expect(() => operacao).toThrow("Saldo insuficiente.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   // teste transferencia por pix
@@ -260,8 +260,8 @@ describe("Testes da classe conta Standard", () => {
     expect(contaEmissor.getSaldo()).toBe(900)
     expect(contaReceptor.getSaldo()).toBe(600)
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
 
   })
 
@@ -281,8 +281,8 @@ describe("Testes da classe conta Standard", () => {
     //verificacao
     expect(() => operacao).toThrow("Chave pix não econtrada. Transferência não conluida.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   test("retorna erro se saldo da conta recepctora for insuficiente", () => {
@@ -301,8 +301,8 @@ describe("Testes da classe conta Standard", () => {
     //verificacao
     expect(() => operacao).toThrow("Saldo insuficiente. Transferência não conluida.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
   test("retorna erro se valor da transferência for negativo", () => {
@@ -321,8 +321,8 @@ describe("Testes da classe conta Standard", () => {
     //verificacao
     expect(() => operacao).toThrow("Valor inválido. Transferência não conluida.")
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirConta();
+    contaReceptor.destruirConta();
   })
 
 
@@ -343,7 +343,7 @@ describe("Testes da classe conta Standard", () => {
     expect(() => contaStandard.transferirPorPix(1010)).toThrow("Não foi possível realizar transferência por pix. Limite de transação diário é de R$1.000,00 reais");
     expect(contaStandard.getSaldo()).toBe(2000);
 
-    contaStandard.destruir()
+    contaStandard.destruirConta()
   });
 
 
