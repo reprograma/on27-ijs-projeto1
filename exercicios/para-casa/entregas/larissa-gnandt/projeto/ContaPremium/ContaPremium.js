@@ -1,4 +1,5 @@
 const Conta = require("../Conta/Conta");
+const valorRendaMinima = 18;
 
 class ContaPremium extends Conta {
   renda;
@@ -9,7 +10,7 @@ class ContaPremium extends Conta {
   }
 
   criarConta(agencia, conta, saldo, renda) {
-    if (renda >= 18000) {
+    if (renda >= valorRendaMinima) {
       super.criarConta(agencia, conta, saldo);
       return "Conta criada com sucesso";
     } else {

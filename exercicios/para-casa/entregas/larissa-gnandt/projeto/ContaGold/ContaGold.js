@@ -1,4 +1,6 @@
 const Conta = require("../Conta/Conta");
+const valorMinimoRenda = 5000;
+const valorMaximoRenda = 17999.99;
 
 class ContaGold extends Conta {
   limiteTransacional;
@@ -11,7 +13,7 @@ class ContaGold extends Conta {
   }
 
   criarConta(agencia, conta, saldo, renda) {
-    if (renda >= 5000 && renda <= 17999.99) {
+    if (renda >= valorMinimoRenda && renda <= valorMaximoRenda) {
       super.criarConta(agencia, conta, saldo);
       return "Conta criada com sucesso";
     } else {
