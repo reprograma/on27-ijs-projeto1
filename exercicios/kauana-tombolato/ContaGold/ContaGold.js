@@ -33,6 +33,4 @@ class ContaGold extends Conta {
   }
 }
 
-
-
 module.exports = ContaGold;

@@ -1,10 +1,10 @@
 const Conta = require("../Conta/Conta");
 
 class ContaStandard extends Conta {
-  constructor(agencia, conta, saldo){
+  constructor(agencia, conta, saldo, renda){
     super(agencia, conta, saldo);
     this.limiteTransacional = 1000
-    this.renda = 4999.99
+    this.renda = renda
   }
 
   criarConta(agencia, conta, saldo, renda) {
@@ -41,5 +41,6 @@ class ContaStandard extends Conta {
     return "Transferência realizada";
   }
 }
+
 
 module.exports = ContaStandard;

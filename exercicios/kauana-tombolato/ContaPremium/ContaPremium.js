@@ -16,4 +16,5 @@ class ContaPremium extends Conta {
   }
 }
 
+
 module.exports = ContaPremium;

@@ -4,7 +4,7 @@ describe("Teste da classe ContaGold", () => {
   test("Verificar se a instância ContaGold está sendo criada", () => {
     const conta = new ContaGold();
     expect(conta instanceof ContaGold).toBe(true);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("Instanciar conta gold com valores válidos", () => {
@@ -12,7 +12,7 @@ describe("Teste da classe ContaGold", () => {
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de sucesso ao criar conta gold", () => {
@@ -24,7 +24,7 @@ describe("Teste da classe ContaGold", () => {
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERRO ao criar conta Gold", () => {
@@ -32,7 +32,7 @@ describe("Teste da classe ContaGold", () => {
     const operacao = () => conta.criarConta("1234", "345", 1000, 7000);
 
     expect(operacao).toThrow("Dados inválidos para cadastro");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERRO ao tentar criar conta Gold com renda incompatível", () => {
@@ -40,7 +40,7 @@ describe("Teste da classe ContaGold", () => {
     const operacao = () => conta.criarConta("1111", "12345", 1000, 3000);
 
     expect(operacao).toThrow("Renda não compatível com Conta Gold");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna sucesso ao sacar 100 da conta gold", () => {
@@ -49,16 +49,16 @@ describe("Teste da classe ContaGold", () => {
 
     conta.sacar(100);
     expect(conta.getSaldo()).toBe(900);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao sacar -100 da conta gold", () => {
     const conta = new ContaGold();
     conta.criarConta("1234", "12345", 1000, 7000);
 
-    expect(() => conta.sacar(-100)).toThrow("Valor inválido para saque");
+    expect(() => conta.sacar(-100)).toThrow("Valor inválido.");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de sucesso ao depositar 100 na conta", () => {
@@ -67,25 +67,25 @@ describe("Teste da classe ContaGold", () => {
 
     conta.depositar(100);
     expect(conta.getSaldo()).toBe(1100);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retona mensagem de erro ao depositar -100 da conta", () => {
     const conta = new ContaGold();
     conta.criarConta("1234", "12345", 1000, 6000);
 
-    expect(() => conta.depositar(-100)).toThrow("Valor inválido para depósito");
+    expect(() => conta.depositar(-100)).toThrow("Valor inválido.");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao depositar valor não numérico da conta", () => {
     const conta = new ContaGold();
     conta.criarConta("1234", "12345", 1000, 6000);
 
-    expect(() => conta.depositar(" ")).toThrow("Valor inválido para depósito");
+    expect(() => conta.depositar(" ")).toThrow("Valor inválido.");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna sucesso ao fazer uma transferência com valor válido, saldo sufuciente, dados válidos", () => {
@@ -101,8 +101,8 @@ describe("Teste da classe ContaGold", () => {
     expect(contaEmissor.getSaldo()).toBe(2800);
     expect(contaReceptor.getSaldo()).toBe(1200);
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao tentar fazer uma transferência acima do limite diário", () => {
@@ -118,8 +118,8 @@ describe("Teste da classe ContaGold", () => {
     expect(contaEmissor.getSaldo()).toBe(6000);
     expect(contaReceptor.getSaldo()).toBe(1000);
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("criar chave pix por cpf com sucesso", () => {
@@ -128,7 +128,7 @@ describe("Teste da classe ContaGold", () => {
 
     expect(operacao).toBe("Chave Pix por cpf criada com sucesso");
     expect(conta.chavesPix.cpf).toBe("12345678978");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao tentar cadastrar chave pix com cpf inválido", () => {
@@ -137,7 +137,7 @@ describe("Teste da classe ContaGold", () => {
     expect(() => conta.criarChavePix("123456", "CPF")).toThrow(
       "Erro: CPF inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("criar chave Pix EMAIL com sucesso", () => {
@@ -146,16 +146,16 @@ describe("Teste da classe ContaGold", () => {
 
     expect(operacao).toBe("Chave Pix por email criada com sucesso");
     expect(conta.chavesPix.email).toBe("kauana.tombolato@email.com.br");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERROo ao tentar cadastrar chave Pix EMAIL inválido", () => {
     const conta = new ContaGold();
 
     expect(() => conta.criarChavePix("kauana.tombolato@email", "EMAIL")).toThrow(
-      "Erro: Email inválido"
+      "Erro: EMAIL inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("criar chave Pix TELEFONE com sucesso", () => {
@@ -164,25 +164,25 @@ describe("Teste da classe ContaGold", () => {
 
     expect(operacao).toBe("Chave Pix por telefone criada com sucesso");
     expect(conta.chavesPix.telefone).toBe("19997852117");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retornar mensagem de ERRO ao tentar cadastrar chave Pix TELEFONE inválido", () => {
     const conta = new ContaGold();
 
     expect(() => conta.criarChavePix("9173854", "TELEFONE")).toThrow(
-      "Erro: Telefone inválido"
+      "Erro: TELEFONE inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERRo ao tentar cadastrar chave Pix Inexistente", () => {
     const conta = new ContaGold();
 
-    expect(conta.criarChavePix("inexistente", "INEXISTENTE")).toBe(
-      "Chave inexistente"
+    expect(() => conta.criarChavePix("inexistente", "INEXISTENTE")).toThrow(
+      "Tipo de chavePix inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna sucesso ao fazer uma trnasferência via Pix com valor válido, saldo suficiente, dados válidos e limite diário", () => {
@@ -203,8 +203,8 @@ describe("Teste da classe ContaGold", () => {
     expect(operacao).toBe("Transferência realizada");
     expect(contaEmissor.getSaldo()).toBe(500);
     expect(contaReceptor.getSaldo()).toBe(2500);
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("retorna ERRO ao tentar realizar uma transfereência via Pix com valor acima do limite diário", () => {
@@ -219,8 +219,8 @@ describe("Teste da classe ContaGold", () => {
     expect(() =>
       contaEmissor.transferenciaPix(5200, "kauana.tombolato@email.com.br", "email")
     ).toThrow("ERRO: Valor acima do limite diário disponível");
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("retorna ERRO ao tentar realizar uma transferência via Pix com valor inválido", () => {
@@ -234,11 +234,11 @@ describe("Teste da classe ContaGold", () => {
 
     expect(() =>
       contaEmissor.transferenciaPix(-100, "39387827111", "cpf")
-    ).toThrow("Valor inválido de pix");
+    ).toThrow("Valor inválido.");
     expect(contaEmissor.getSaldo()).toBe(1000);
     expect(contaReceptor.getSaldo()).toBe(500);
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao tentar realizar uma transferência acima do valor disponível no saldo", () => {
@@ -255,7 +255,7 @@ describe("Teste da classe ContaGold", () => {
     );
     expect(contaEmissor.getSaldo()).toBe(500);
     expect(contaReceptor.getSaldo()).toBe(500);
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 });

@@ -4,7 +4,7 @@ describe("Teste da classe ContaPremium", () => {
   test("Verificar se a instância ContaPremium está sendo criada", () => {
     const conta = new ContaPremium();
     expect(conta instanceof ContaPremium).toBe(true);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("Instanciar conta premium com valores válidos", () => {
@@ -12,7 +12,7 @@ describe("Teste da classe ContaPremium", () => {
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de sucesso ao criar conta premium", () => {
@@ -23,7 +23,7 @@ describe("Teste da classe ContaPremium", () => {
     expect(conta.getAgencia()).toBe("1234");
     expect(conta.getConta()).toBe("12345");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERRO ao criar conta Premium", () => {
@@ -31,7 +31,7 @@ describe("Teste da classe ContaPremium", () => {
     const operacao = () => conta.criarConta("1234", "345", 1000, 19000);
 
     expect(operacao).toThrow("Dados inválidos para cadastro");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERRO ao tentar criar conta Premium com renda incompatível", () => {
@@ -39,7 +39,7 @@ describe("Teste da classe ContaPremium", () => {
     const operacao = () => conta.criarConta("1111", "12345", 1000, 3000);
 
     expect(operacao).toThrow("Renda não compatível com Conta Premium");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna sucesso ao sacar 100 da conta Premium", () => {
@@ -48,16 +48,16 @@ describe("Teste da classe ContaPremium", () => {
 
     conta.sacar(100);
     expect(conta.getSaldo()).toBe(900);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao sacar -100 da conta Premium", () => {
     const conta = new ContaPremium();
     conta.criarConta("1234", "12345", 1000, 20000);
 
-    expect(() => conta.sacar(-100)).toThrow("Valor inválido para saque");
+    expect(() => conta.sacar(-100)).toThrow("Valor inválido.");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de sucesso ao depositar 100 na conta", () => {
@@ -66,25 +66,25 @@ describe("Teste da classe ContaPremium", () => {
 
     conta.depositar(100);
     expect(conta.getSaldo()).toBe(1100);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retona mensagem de erro ao depositar -100 da conta", () => {
     const conta = new ContaPremium();
     conta.criarConta("1234", "12345", 1000, 20000);
 
-    expect(() => conta.depositar(-100)).toThrow("Valor inválido para depósito");
+    expect(() => conta.depositar(-100)).toThrow("Valor inválido.");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao depositar valor não numérico da conta", () => {
     const conta = new ContaPremium();
     conta.criarConta("1234", "12345", 1000, 20000);
 
-    expect(() => conta.depositar(" ")).toThrow("Valor inválido para depósito");
+    expect(() => conta.depositar(" ")).toThrow("Valor inválido.");
     expect(conta.getSaldo()).toBe(1000);
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna sucesso ao fazer uma transferência com valor válido, saldo sufuciente, dados válidos", () => {
@@ -96,12 +96,12 @@ describe("Teste da classe ContaPremium", () => {
 
     const operacao = contaEmissor.transferir(200, "7894", "45678");
 
-    expect(operacao).toBe("Tranferencia realizada");
+    expect(operacao).toBe("Transferencia realizada");
     expect(contaEmissor.getSaldo()).toBe(1800);
     expect(contaReceptor.getSaldo()).toBe(1200);
 
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("criar chave pix por cpf com sucesso", () => {
@@ -110,7 +110,7 @@ describe("Teste da classe ContaPremium", () => {
 
     expect(operacao).toBe("Chave Pix por cpf criada com sucesso");
     expect(conta.chavesPix.cpf).toBe("39387827111");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao tentar cadastrar chave pix com cpf inválido", () => {
@@ -119,7 +119,7 @@ describe("Teste da classe ContaPremium", () => {
     expect(() => conta.criarChavePix("123456", "CPF")).toThrow(
       "Erro: CPF inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("criar chave Pis EMAIL com sucesso", () => {
@@ -128,16 +128,16 @@ describe("Teste da classe ContaPremium", () => {
 
     expect(operacao).toBe("Chave Pix por email criada com sucesso");
     expect(conta.chavesPix.email).toBe("kauana.tombolato@email.com.br");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERROo ao tentar cadastrar chave Pix EMAIL inválido", () => {
     const conta = new ContaPremium();
 
     expect(() => conta.criarChavePix("kauana.tombolato@email", "EMAIL")).toThrow(
-      "Erro: Email inválido"
+      "Erro: EMAIL inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("criar chave Pix TELEFONE com sucesso", () => {
@@ -146,25 +146,25 @@ describe("Teste da classe ContaPremium", () => {
 
     expect(operacao).toBe("Chave Pix por telefone criada com sucesso");
     expect(conta.chavesPix.telefone).toBe("(19)997852117");
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retornar mensagem de ERRO ao tentar cadastrar chave Pix TELEFONE inválido", () => {
     const conta = new ContaPremium();
 
     expect(() => conta.criarChavePix("978521", "TELEFONE")).toThrow(
-      "Erro: Telefone inválido"
+      "Erro: TELEFONE inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna mensagem de ERRo ao tentar cadastrar chave Pix Inexistente", () => {
     const conta = new ContaPremium();
 
-    expect(conta.criarChavePix("inexistente", "INEXISTENTE")).toBe(
-      "Chave inexistente"
+    expect(() => conta.criarChavePix("inexistente", "INEXISTENTE")).toThrow(
+      "Tipo de chavePix inválido"
     );
-    conta.destruir();
+    conta.destruirListaContas();
   });
 
   test("retorna sucesso ao fazer uma trnasferência via Pix com valor válido, saldo suficiente, dados válidos e limite diário", () => {
@@ -182,11 +182,11 @@ describe("Teste da classe ContaPremium", () => {
       "email"
     );
 
-    expect(operacao).toBe("Tranferencia realizada");
+    expect(operacao).toBe("Transferencia realizada");
     expect(contaEmissor.getSaldo()).toBe(500);
     expect(contaReceptor.getSaldo()).toBe(2500);
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("retorna ERRO ao tentar realizar uma transferência via Pix com valor inválido", () => {
@@ -200,11 +200,11 @@ describe("Teste da classe ContaPremium", () => {
 
     expect(() =>
       contaEmissor.transferenciaPix(-100, "12345678977", "cpf")
-    ).toThrow( "Valor inválido de pix");
+    ).toThrow( "Valor inválido.");
     expect(contaEmissor.getSaldo()).toBe(1000);
     expect(contaReceptor.getSaldo()).toBe(500);
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 
   test("retorna mensagem de erro ao tentar realizar uma transferência acima do valor disponível no saldo", () => {
@@ -221,7 +221,7 @@ describe("Teste da classe ContaPremium", () => {
     );
     expect(contaEmissor.getSaldo()).toBe(500);
     expect(contaReceptor.getSaldo()).toBe(500);
-    contaEmissor.destruir();
-    contaReceptor.destruir();
+    contaEmissor.destruirListaContas();
+    contaReceptor.destruirListaContas();
   });
 });
