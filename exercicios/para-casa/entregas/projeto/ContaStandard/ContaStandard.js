@@ -1,6 +1,6 @@
 const Conta = require("../Conta/Conta");
 
-class ContaStandart extends Conta {
+class ContaStandard extends Conta {
   #limite;
   renda;
 
@@ -38,4 +38,4 @@ class ContaStandart extends Conta {
   }
 }
 
-module.exports = ContaStandart;
+module.exports = ContaStandard;

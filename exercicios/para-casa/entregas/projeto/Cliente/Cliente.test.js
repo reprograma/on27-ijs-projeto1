@@ -12,13 +12,13 @@ describe("Teste da classe Cliente", ()=>{
         const cliente = new Cliente();
         const conta = new Conta();
 
-        expect(cliente.registrar("Analu", "121564943121", 5000, conta)).toBe("Cliente Cadastrado")
+        expect(cliente.registrarCliente("Analu", "121564943121", 5000, conta)).toBe("Cliente Cadastrado")
     })
 
     test("retorne mensagem de erro quando tenta cadastrar cliente sem uma conta", ()=>{
         const cliente = new Cliente();
 
-        expect(() => cliente.registrar("Analu", "121564943121", 5000, "nao conta")).toThrow("Erro no cadastro, dados inválidos")
+        expect(() => cliente.registrarCliente("Analu", "121564943121", 5000, "nao conta")).toThrow("Erro no cadastro, dados inválidos")
     
     })
 })
