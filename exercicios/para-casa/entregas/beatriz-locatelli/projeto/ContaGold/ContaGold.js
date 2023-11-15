@@ -1,5 +1,7 @@
 const Conta = require("../Conta/Conta");
 const RENDA = require("../Utils")
+const LIMITE_TRANSACIONAL = require("../Utils")
+
 class ContaGold extends Conta {
     renda;
 
@@ -16,7 +18,7 @@ class ContaGold extends Conta {
         console.log("Conta criada com sucesso!")
     }
 
-    verificaLimiteTranscional(valor) {
+    verificaLimiteTransacional(valor) {
         if (valor < LIMITE_TRANSACIONAL.gold) {
             return valor
         } else {
@@ -26,7 +28,7 @@ class ContaGold extends Conta {
 
     sacar(valor) {
         try {
-            verificaLimiteTranscional(valor)
+            this.verificaLimiteTransacional(valor)
             super.sacar(valor)
         } catch (error) {
             throw error
@@ -35,7 +37,7 @@ class ContaGold extends Conta {
 
     depositar(valor) {
         try {
-            verificaLimiteTranscional(valor)
+            this.verificaLimiteTransacional(valor)
             super.depositar(valor)
         } catch (error) {
             throw error
@@ -44,7 +46,7 @@ class ContaGold extends Conta {
 
     transferir(valor, agencia, conta) {
         try {
-            verificaLimiteTranscional(valor)
+            this.verificaLimiteTransacional(valor)
             super.transferir(valor, agencia, conta)
         } catch (error) {
             throw error
@@ -53,7 +55,7 @@ class ContaGold extends Conta {
 
     transferirPorPix(valor, chavePix, tipo) {
         try {
-            verificaLimiteTranscional(valor)
+            this.verificaLimiteTransacional(valor)
             super.transferirPorPix(valor, chavePix, tipo)
         } catch (error) {
             throw error

@@ -1,4 +1,3 @@
-const REGEX = require("../Utils")
 class Conta {
     #agencia;
     #conta;
@@ -142,7 +141,7 @@ class Conta {
                     this.chavesPix.email = chavePix
                     return "Chave Pix por email criada com sucesso"
                 } else {
-                    throw new Error("Erro: Email inválido");
+                    throw new Error("Erro: EMAIL inválido");
                 }
 
             case "TELEFONE":
@@ -151,7 +150,7 @@ class Conta {
                     this.chavesPix.telefone = chavePix
                     return "Chave Pix por telefone criada com sucesso"
                 } else {
-                    throw new Error("Erro: Telefone inválido");
+                    throw new Error("Erro: TELEFONE inválido");
                 }
 
             default:
